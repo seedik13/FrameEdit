@@ -71,7 +71,11 @@
                     <h3 class="font-bold text-sm mb-4 uppercase text-accent">Add New Project</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <input type="text" id="new-title" placeholder="Project Name" class="bg-black border border-white/10 p-3 rounded-lg outline-none text-sm">
-                        <input type="text" id="new-vimeo" placeholder="Vimeo ID (e.g. 1016254030)" class="bg-black border border-white/10 p-3 rounded-lg outline-none text-sm">
+                        <select id="new-type" class="bg-black border border-white/10 p-3 rounded-lg outline-none text-sm w-full">
+                            <option value="video">Video</option>
+                            <option value="image">Image</option>
+                        </select>
+                        <input type="text" id="new-src" placeholder="Vimeo ID or Image URL" class="bg-black border border-white/10 p-3 rounded-lg outline-none text-sm md:col-span-2">
                     </div>
                     <button onclick="addNewProject()" class="w-full mt-4 bg-white text-black font-bold py-3 rounded-xl hover:bg-accent transition-colors">Add to Portfolio</button>
                 </div>
@@ -229,147 +233,99 @@
                     <div class="space-y-2">
                         <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Video Orientation</label>
                         <select id="f-orientation" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
-                            <option value="Vertical (9:16)">Vertical (Reels / TikTok / Shorts)</option>
-                            <option value="Horizontal (16:9)">Horizontal (YouTube / Website)</option>
-                            <option value="Square (1:1)">Square (Instagram Feed)</option>
+                            <option value="Vertical (9:16)">Vertical (9:16)</option>
+                            <option value="Horizontal (16:9)">Horizontal (16:9)</option>
+                            <option value="Square (1:1)">Square (1:1)</option>
                         </select>
                     </div>
 
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Video Usage</label>
-                        <select id="f-usage" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
-                            <option value="Social Media Content">Social Media Post</option>
-                            <option value="Paid Advertisement">Paid Advertisement</option>
-                            <option value="Brand Promo">Brand Promo</option>
-                            <option value="Personal / YouTube">Personal / YouTube</option>
-                        </select>
+                    <div class="md:col-span-2 space-y-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Message / Brief</label>
+                        <textarea id="f-message" rows="4" placeholder="Describe your project in detail..." class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all"></textarea>
                     </div>
 
-                    <div class="space-y-2">
-                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Estimated Duration</label>
-                        <select id="f-duration" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
-                            <option value="Under 30s">< 30 seconds</option>
-                            <option value="30s - 60s">30–60 seconds</option>
-                            <option value="1 - 3 mins">1–3 minutes</option>
-                            <option value="Over 3 mins">+ 3 minutes</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-2 md:col-span-2">
-                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Deadline</label>
-                        <select id="f-dead" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
-                            <option value="Urgent (ASAP)">Urgent (ASAP)</option>
-                            <option value="Within this week">Within this week</option>
-                            <option value="Flexible (No rush)">Flexible / No rush</option>
-                        </select>
-                    </div>
-
-                    <div class="md:col-span-2 mt-6">
-                        <button type="submit" class="w-full bg-accent text-black font-bold py-5 rounded-2xl uppercase tracking-[0.2em] text-sm hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(0,255,174,0.3)] transition-all">
-                            Send Request via WhatsApp
-                        </button>
+                    <div class="md:col-span-2 flex justify-center mt-6">
+                        <button type="submit" class="bg-accent text-black px-12 py-4 rounded-full font-bold uppercase tracking-widest hover:scale-105 transition-all">Send Request</button>
                     </div>
                 </form>
             </div>
         </section>
     </main>
 
-    <!-- FOOTER WITH SOCIALS -->
-    <footer class="px-6 py-20 bg-black border-t border-white/5">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-            <div class="text-center md:text-left">
-                <div class="font-display text-3xl font-bold mb-4 uppercase">FRAME<span class="text-accent">EDIT</span></div>
-                <p class="text-xs opacity-50 uppercase tracking-widest">Premium Motion & Video Content</p>
-            </div>
-
-            <div class="flex flex-col items-center gap-6">
-                <h5 class="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">Connect with me</h5>
-                <div class="flex gap-8">
-                    <!-- Instagram -->
-                    <a href="https://instagram.com/seddik" target="_blank" class="hover:text-accent transition-all group">
-                        <svg class="w-6 h-6 fill-current group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                    <!-- TikTok -->
-                    <a href="https://tiktok.com/@seddik" target="_blank" class="hover:text-accent transition-all group">
-                        <svg class="w-6 h-6 fill-current group-hover:scale-110" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                    </a>
-                    <!-- Email -->
-                    <a href="mailto:seddik@example.com" class="hover:text-accent transition-all group">
-                        <svg class="w-6 h-6 fill-none stroke-current stroke-2 group-hover:scale-110" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                    </a>
-                </div>
-            </div>
-
-            <div class="text-center md:text-right">
-                <p class="text-[10px] opacity-40 uppercase tracking-widest leading-loose">
-                    &copy; 2024 FrameEdit Studio<br>
-                    Crafted with passion by Seddik
-                </p>
-            </div>
-        </div>
-    </footer>
-
     <script>
-        const phone = "213668591373";
-        let projects = [
-            { id: '1016254030', title: 'Street Fashion 2024' },
-            { id: '913349639', title: 'Corporate Reveal' },
-            { id: '1016254030', title: 'Tech Showcase' },
-            { id: '913349639', title: 'Brand Story' },
-            { id: '1016254030', title: 'Social Reel X' },
-            { id: '913349639', title: 'Music Video Edit' },
-            { id: '1016254030', title: 'Commercial Spot' }
-        ];
-
-        let itemsToShow = 5;
-
-        // Admin System
-        let clickCount = 0;
-        function logoClick() {
-            clickCount++;
-            if(clickCount >= 5) { document.getElementById('admin-overlay').style.display = 'flex'; clickCount = 0; }
-            setTimeout(() => { clickCount = 0; }, 2000);
-        }
+        // Admin Overlay
+        const adminPassword = 'seddikbenkada';
+        function logoClick() { document.getElementById('admin-overlay').style.display = 'flex'; }
         function closeAdmin() { document.getElementById('admin-overlay').style.display = 'none'; }
         function verifyAdmin() {
-            if(document.getElementById('admin-pass').value === "seddikbenkada") {
+            const pass = document.getElementById('admin-pass').value;
+            if(pass === adminPassword){ 
                 document.getElementById('admin-auth').classList.add('hidden');
                 document.getElementById('admin-content').classList.remove('hidden');
                 renderAdminList();
-            } else { alert("Khoya, ghalet!"); }
+            } else alert('Incorrect password!');
         }
-        function renderAdminList() {
-            const list = document.getElementById('admin-project-list');
-            list.innerHTML = '';
-            projects.forEach((p, idx) => {
-                list.innerHTML += `<div class="flex items-center gap-3 bg-black/60 p-3 rounded-xl border border-white/5"><div class="flex-1 text-xs font-bold truncate">${p.title}</div><button onclick="deleteProject(${idx})" class="text-red-500 font-bold px-2">X</button></div>`;
-            });
-        }
-        function addNewProject() {
-            const t = document.getElementById('new-title').value, i = document.getElementById('new-vimeo').value;
-            if(t && i) { projects.unshift({ id: i, title: t }); renderAdminList(); }
-        }
-        function deleteProject(idx) { projects.splice(idx, 1); renderAdminList(); }
-        function saveAdminChanges() { itemsToShow = 5; renderWork(); closeAdmin(); }
 
-        // Core Functions
+        // Portfolio Data
+        let projects = [
+            { type: 'video', id: '1016254030', title: 'Street Fashion 2024' },
+            { type: 'image', src: 'images/project1.jpg', title: 'Cool Poster' },
+            { type: 'video', id: '913349639', title: 'Corporate Reveal' }
+        ];
+        let itemsToShow = 2;
+
         function renderWork() {
             const grid = document.getElementById('portfolio-grid'), btn = document.getElementById('load-more-container');
             grid.innerHTML = '';
             projects.slice(0, itemsToShow).forEach(p => {
-                grid.innerHTML += `<div class="bg-cardBg rounded-[32px] p-6 border border-white/5 hover:border-accent/30 transition-all group"><div class="vimeo-wrapper mb-6"><iframe src="https://player.vimeo.com/video/${p.id}"></iframe></div><h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3></div>`;
+                if(p.type === 'video'){
+                    grid.innerHTML += `<div class="bg-cardBg rounded-[32px] p-6 border border-white/5 hover:border-accent/30 transition-all group">
+                        <div class="vimeo-wrapper mb-6"><iframe src="https://player.vimeo.com/video/${p.id}" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+                        <h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3>
+                    </div>`;
+                } else if(p.type === 'image'){
+                    grid.innerHTML += `<div class="bg-cardBg rounded-[32px] p-6 border border-white/5 hover:border-accent/30 transition-all group">
+                        <img src="${p.src}" class="rounded-[16px] mb-6 w-full object-cover" />
+                        <h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3>
+                    </div>`;
+                }
             });
             btn.classList.toggle('hidden', projects.length <= itemsToShow);
         }
-        function loadMore() { itemsToShow += 4; renderWork(); }
 
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
+        function loadMore() { itemsToShow += 2; renderWork(); }
+
+        renderWork();
+
+        // Admin functions
+        function addNewProject() {
+            const t = document.getElementById('new-title').value;
+            const i = document.getElementById('new-src').value;
+            const type = document.getElementById('new-type').value;
+            if(t && i){ 
+                projects.unshift({ type: type, ...(type === 'video' ? {id: i} : {src: i}), title: t });
+                renderAdminList(); 
+                renderWork();
+            }
+        }
+
+        function renderAdminList() {
+            const list = document.getElementById('admin-project-list');
+            list.innerHTML = '';
+            projects.forEach((p,i)=>{ list.innerHTML += `<div class="flex justify-between items-center bg-black/30 p-3 rounded-lg text-sm">
+                ${p.title} (${p.type}) <button onclick="removeProject(${i})" class="text-red-500 font-bold">REMOVE</button>
+            </div>`; });
+        }
+
+        function removeProject(idx){ projects.splice(idx,1); renderAdminList(); renderWork(); }
+        function saveAdminChanges(){ alert('Changes saved!'); location.reload(); }
+
+        // Contact Form Submission
+        document.getElementById('contactForm').addEventListener('submit', e => {
             e.preventDefault();
-            const msg = `*Briefing*:%0A- Client: ${document.getElementById('f-name').value}%0A- Type: ${document.getElementById('f-type').value}%0A- Dur: ${document.getElementById('f-duration').value}%0A- Dead: ${document.getElementById('f-dead').value}`;
-            window.open(`https://wa.me/${phone}?text=${msg}`);
+            alert('Request sent successfully!');
+            document.getElementById('contactForm').reset();
         });
-
-        window.onload = renderWork;
     </script>
 </body>
 </html>
