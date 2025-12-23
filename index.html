@@ -10,6 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -37,16 +38,53 @@
     <style>
         body { font-family: 'Inter', 'IBM Plex Sans Arabic', sans-serif; background-color: #050505; color: white; }
         [dir="rtl"] body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
+        
         ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #00FFAE; border-radius: 10px; }
+
         .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 174, 0.1); }
         .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.15) 0%, transparent 70%); }
+        .neon-border { border: 1px solid #00FFAE; box-shadow: 0 0 10px rgba(0, 255, 174, 0.3); }
+        
+        .vimeo-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #000;
+        }
+        .vimeo-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     </style>
 </head>
-<body class="overflow-x-hidden antialiased">
+<body class="overflow-x-hidden antialiased selection:bg-accent selection:text-black">
+
+    <div id="admin-panel" class="fixed inset-0 z-[100] bg-black/95 hidden items-center justify-center p-6">
+        <div class="bg-cardBg border border-accent/30 p-8 rounded-3xl max-w-md w-full relative">
+            <button onclick="toggleAdminPanel()" class="absolute top-4 right-4 text-textMuted hover:text-white">✕</button>
+            <h2 class="font-display text-2xl font-bold mb-6 text-accent">Admin Dashboard</h2>
+            <div class="space-y-4">
+                <input type="text" id="new-video-title" placeholder="Project Title" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent">
+                <input type="text" id="new-video-id" placeholder="Vimeo Video ID" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent">
+                <select id="new-video-category" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent">
+                    <option value="Editing">Editing</option>
+                    <option value="Motion">Motion</option>
+                </select>
+                <button onclick="addProject()" class="w-full bg-accent text-black font-bold py-3 rounded-xl hover:brightness-110">Add Project</button>
+                <button onclick="logoutAdmin()" class="w-full border border-red-500/50 text-red-500 py-2 rounded-xl text-sm mt-4">Logout</button>
+            </div>
+        </div>
+    </div>
 
     <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 glass z-50">
-        <div id="logo-trigger" class="font-display text-2xl font-bold tracking-tight cursor-pointer select-none">
+        <div class="font-display text-2xl font-bold tracking-tight cursor-pointer" onclick="handleLogoClick()">
             FRAME<span class="text-accent">EDIT</span>
         </div>
         
@@ -56,14 +94,14 @@
             <a href="#view-insights" data-i18n="nav-insights" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Insights</a>
             <a href="#view-contact" data-i18n="nav-contact" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Contact</a>
             
-            <select onchange="changeLanguage(this.value)" class="bg-transparent border border-borderColor text-accent text-xs p-1 rounded font-bold outline-none cursor-pointer">
+            <select onchange="changeLanguage(this.value)" class="bg-transparent border border-borderColor text-accent text-xs p-1 rounded outline-none cursor-pointer font-bold">
                 <option value="en" class="bg-bgDark">EN</option>
                 <option value="fr" class="bg-bgDark">FR</option>
                 <option value="ar" class="bg-bgDark">AR</option>
             </select>
         </div>
 
-        <a href="#view-contact" data-i18n="btn-start" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all">
+        <a href="#view-contact" data-i18n="btn-start" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,174,0.3)]">
             Start Now
         </a>
     </nav>
@@ -81,148 +119,158 @@
                     Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.
                 </p>
                 <div class="flex flex-wrap gap-6 justify-center">
-                    <a href="#view-work" data-i18n="btn-view-work" class="bg-accent text-black px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:brightness-110 transition-all">
+                    <a href="#view-work" data-i18n="btn-view-work" class="neon-border bg-transparent text-accent px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-accent hover:text-black transition-all">
                         View Projects
+                    </a>
+                    <a href="#view-contact" data-i18n="nav-contact" class="bg-white/5 border border-white/10 text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white/10 transition-all">
+                        Get In Touch
                     </a>
                 </div>
             </div>
         </section>
 
         <section id="view-work" class="px-6 lg:px-16 py-32 max-w-[1440px] mx-auto">
-            <h2 data-i18n="work-title" class="font-display text-4xl md:text-6xl font-bold mb-20 text-center uppercase tracking-tighter text-white">Selected <span class="text-accent">Works</span></h2>
-            <div id="portfolio-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+                <div class="max-w-xl">
+                    <h2 data-i18n="work-title" class="font-display text-4xl md:text-6xl font-bold mb-6">Selected Works</h2>
+                    <p data-i18n="work-desc" class="text-textMuted text-lg">A curated selection of our high-impact video projects and motion designs.</p>
                 </div>
+                <div class="flex bg-cardBg p-1 rounded-xl border border-borderColor">
+                    <button onclick="filterProjects('all')" data-i18n="filter-all" class="px-6 py-2 rounded-lg bg-accent text-black font-bold text-xs uppercase tracking-widest">All</button>
+                    <button onclick="filterProjects('Motion')" data-i18n="filter-motion" class="px-6 py-2 rounded-lg text-textMuted font-bold text-xs uppercase tracking-widest hover:text-white transition-all">Motion</button>
+                    <button onclick="filterProjects('Editing')" data-i18n="filter-editing" class="px-6 py-2 rounded-lg text-textMuted font-bold text-xs uppercase tracking-widest hover:text-white transition-all">Editing</button>
+                </div>
+            </div>
+            <div id="portfolio-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"></div>
         </section>
 
-        <section id="admin-panel" class="hidden px-6 py-20 bg-accent/5 border-y border-accent/20">
-            <div class="max-w-4xl mx-auto text-center">
-                <h3 class="text-accent font-display text-xl mb-8 uppercase font-bold">Admin Dashboard</h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <input type="text" id="admin-vimeo-id" placeholder="Vimeo ID" class="bg-black border border-borderColor p-4 rounded-xl outline-none focus:border-accent">
-                    <input type="text" id="admin-title" placeholder="Project Title" class="bg-black border border-borderColor p-4 rounded-xl outline-none focus:border-accent">
-                    <button onclick="addNewWork()" class="bg-accent text-black font-bold rounded-xl py-4">Add Project</button>
-                </div>
-                <button onclick="hideAdmin()" class="text-xs text-textMuted underline uppercase">Close Admin</button>
-            </div>
-        </section>
-
-        <section id="view-contact" class="px-6 py-32 flex items-center justify-center border-t border-white/5 bg-gradient-to-b from-transparent to-accent/5">
-            <div class="w-full max-w-3xl bg-cardBg border border-borderColor p-10 md:p-20 rounded-[40px] shadow-2xl relative">
-                <div class="text-center mb-12">
-                    <h2 data-i18n="contact-title" class="font-display text-4xl md:text-6xl font-bold mb-6">Let's Create</h2>
-                    <p data-i18n="contact-desc" class="text-textMuted text-lg">Have a vision? We have the tools. Fill out the form to start the conversation on WhatsApp.</p>
-                </div>
-                
-                <form id="contactForm" class="space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-accent px-2">Your Name</label>
-                            <input type="text" id="user-name" placeholder="John Doe" required class="w-full bg-black/40 border border-borderColor p-5 rounded-2xl focus:border-accent outline-none text-white transition-all">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-accent px-2">Service Needed</label>
-                            <select id="user-service" class="w-full bg-black/40 border border-borderColor p-5 rounded-2xl focus:border-accent outline-none text-white transition-all appearance-none">
-                                <option value="Motion Graphics">Motion Graphics</option>
-                                <option value="Cinematic Editing">Cinematic Video Editing</option>
-                                <option value="Color Grading">Color Grading</option>
-                                <option value="Full Production">Full Production</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] uppercase tracking-widest font-bold text-accent px-2">Project Details</label>
-                        <textarea id="user-idea" rows="5" placeholder="Tell us about your project goals..." required class="w-full bg-black/40 border border-borderColor p-5 rounded-2xl focus:border-accent outline-none text-white transition-all resize-none"></textarea>
-                    </div>
-                    
-                    <button type="submit" data-i18n="btn-whatsapp" class="w-full bg-accent text-black font-bold py-6 rounded-2xl uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(0,255,174,0.4)] hover:scale-[1.01] transition-all">
-                        Launch on WhatsApp
-                    </button>
-                </form>
-            </div>
-        </section>
-    </main>
+        </main>
 
     <script>
+        const apiKey = ""; 
         const phoneNumber = "213668591373";
+        let isAdmin = false;
+        let logoClickCount = 0;
 
-        // 1. Data Logic
-        let myWorks = JSON.parse(localStorage.getItem('savedWorks')) || [
-            { id: '1016254030', title: 'Street Fashion Edit' },
-            { id: '913349639', title: 'Corporate Motion Reveal' }
+        // Initialize local storage for projects
+        let defaultProjects = [
+            { id: '1016254030', title: 'Street Fashion Edit', category: 'Editing' },
+            { id: '913349639', title: 'Corporate Motion Reveal', category: 'Motion' }
         ];
+        
+        let projects = JSON.parse(localStorage.getItem('frameedit_projects')) || defaultProjects;
 
-        function renderWork() {
+        const translations = {
+            en: { "nav-home": "Home", "nav-work": "Work", "nav-insights": "Insights", "nav-contact": "Contact", "btn-start": "Start Now", "hero-title": "Modern <br><span class='text-accent'>Visual Craft</span>", "hero-desc": "Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.", "btn-view-work": "View Projects", "work-title": "Selected Works", "work-desc": "A curated selection of our high-impact video projects and motion designs.", "filter-all": "All", "filter-motion": "Motion", "filter-editing": "Editing" },
+            fr: { "nav-home": "Accueil", "nav-work": "Travaux", "nav-insights": "Analyses", "nav-contact": "Contact", "btn-start": "Lancer", "hero-title": "Art <br><span class='text-accent'>Visuel Moderne</span>", "hero-desc": "Transformer vos rushs en histoires cinématographiques avec des animations haut de gamme.", "btn-view-work": "Voir Projets", "work-title": "Travaux Sélectionnés", "work-desc": "Une sélection de nos projets vidéo à fort impact.", "filter-all": "Tout", "filter-motion": "Motion", "filter-editing": "Montage" },
+            ar: { "nav-home": "الرئيسية", "nav-work": "أعمالنا", "nav-insights": "تحليلات", "nav-contact": "تواصل معنا", "btn-start": "ابدأ الآن", "hero-title": "صناعة <br><span class='text-accent'>بصرية عصرية</span>", "hero-desc": "تحويل اللقطات الخام إلى قصص سينمائية مع موشن جرافيك عالي المستوى.", "btn-view-work": "استعرض المشاريع", "work-title": "أعمال مختارة", "work-desc": "مجموعة مختارة من مشاريع الفيديو.", "filter-all": "الكل", "filter-motion": "موشن", "filter-editing": "مونتاج" }
+        };
+
+        // ADMIN FUNCTIONS
+        function handleLogoClick() {
+            logoClickCount++;
+            if (logoClickCount === 5) {
+                const password = prompt("Admin Password Required:");
+                if (password === "seddikbenkada") {
+                    isAdmin = true;
+                    toggleAdminPanel();
+                    renderWork();
+                } else {
+                    alert("Wrong Password");
+                }
+                logoClickCount = 0;
+            }
+        }
+
+        function toggleAdminPanel() {
+            const panel = document.getElementById('admin-panel');
+            panel.classList.toggle('hidden');
+            panel.classList.toggle('flex');
+        }
+
+        function addProject() {
+            const title = document.getElementById('new-video-title').value;
+            const id = document.getElementById('new-video-id').value;
+            const category = document.getElementById('new-video-category').value;
+
+            if(title && id) {
+                projects.unshift({ id, title, category });
+                localStorage.setItem('frameedit_projects', JSON.stringify(projects));
+                renderWork();
+                toggleAdminPanel();
+                // Clear inputs
+                document.getElementById('new-video-title').value = '';
+                document.getElementById('new-video-id').value = '';
+            }
+        }
+
+        function deleteProject(index) {
+            if(confirm("Delete this project?")) {
+                projects.splice(index, 1);
+                localStorage.setItem('frameedit_projects', JSON.stringify(projects));
+                renderWork();
+            }
+        }
+
+        function logoutAdmin() {
+            isAdmin = false;
+            toggleAdminPanel();
+            renderWork();
+        }
+
+        // CORE UI FUNCTIONS
+        function renderWork(filter = 'all') {
             const grid = document.getElementById('portfolio-grid');
             grid.innerHTML = '';
-            myWorks.forEach((p, index) => {
+            const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+            
+            filtered.forEach((p, index) => {
                 grid.innerHTML += `
-                    <div class="bg-cardBg rounded-[32px] p-6 border border-borderColor group transition-all duration-500 hover:translate-y-[-8px]">
-                        <div class="w-full mb-8 shadow-2xl rounded-2xl overflow-hidden bg-black" style="aspect-ratio: 16/9;">
-                            <iframe src="https://player.vimeo.com/video/${p.id}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+                    <div class="bg-cardBg rounded-[32px] p-6 border border-borderColor group relative">
+                        ${isAdmin ? `<button onclick="deleteProject(${index})" class="absolute top-4 right-4 z-20 bg-red-500 text-white p-2 rounded-full text-xs">Delete</button>` : ''}
+                        <div class="vimeo-wrapper mb-8 shadow-2xl">
+                            <iframe src="https://player.vimeo.com/video/${p.id}" frameborder="0" allow="autoplay; fullscreen" title="${p.title}"></iframe>
                         </div>
-                        <div class="flex justify-between items-center px-2">
-                            <h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3>
-                            <button onclick="deleteWork(${index})" class="admin-btn hidden text-red-500 text-xs font-bold uppercase hover:underline">Delete</button>
+                        <div class="flex justify-between items-end px-2">
+                            <div>
+                                <span class="text-accent text-[10px] font-bold uppercase tracking-widest mb-2 block">${p.category}</span>
+                                <h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3>
+                            </div>
                         </div>
                     </div>
                 `;
             });
-            if(!document.getElementById('admin-panel').classList.contains('hidden')) {
-                document.querySelectorAll('.admin-btn').forEach(b => b.classList.remove('hidden'));
-            }
         }
 
-        // 2. Admin Secret Logic
-        let clicks = 0;
-        document.getElementById('logo-trigger').addEventListener('click', () => {
-            clicks++;
-            if(clicks === 5) {
-                const pass = prompt("Password:");
-                if(pass === "seddikbenkada") {
-                    document.getElementById('admin-panel').classList.remove('hidden');
-                    renderWork();
+        function changeLanguage(lang) {
+            const html = document.getElementById('html-tag');
+            html.lang = lang;
+            html.dir = (lang === 'ar') ? 'rtl' : 'ltr';
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerHTML = translations[lang][key];
+            });
+            document.getElementById('hero-title').innerHTML = translations[lang]['hero-title'];
+            document.getElementById('hero-desc').innerText = translations[lang]['hero-desc'];
+        }
+
+        function filterProjects(cat) { 
+            renderWork(cat);
+            const buttons = document.querySelectorAll('#view-work button');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-accent', 'text-black');
+                btn.classList.add('text-textMuted');
+                if(btn.innerText.toLowerCase() === cat.toLowerCase() || (cat === 'all' && btn.getAttribute('data-i18n') === 'filter-all')) {
+                    btn.classList.add('bg-accent', 'text-black');
+                    btn.classList.remove('text-textMuted');
                 }
-                clicks = 0;
-            }
-            setTimeout(() => clicks = 0, 3000);
-        });
+            });
+        }
 
-        function hideAdmin() {
-            document.getElementById('admin-panel').classList.add('hidden');
+        window.onload = () => {
             renderWork();
-        }
-
-        function addNewWork() {
-            const id = document.getElementById('admin-vimeo-id').value;
-            const title = document.getElementById('admin-title').value;
-            if(id && title) {
-                myWorks.push({id, title});
-                localStorage.setItem('savedWorks', JSON.stringify(myWorks));
-                renderWork();
-                document.getElementById('admin-vimeo-id').value = '';
-                document.getElementById('admin-title').value = '';
-            }
-        }
-
-        function deleteWork(index) {
-            if(confirm("Delete this?")) {
-                myWorks.splice(index, 1);
-                localStorage.setItem('savedWorks', JSON.stringify(myWorks));
-                renderWork();
-            }
-        }
-
-        // 3. Contact Form (AS ORIGINAL)
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('user-name').value;
-            const service = document.getElementById('user-service').value;
-            const idea = document.getElementById('user-idea').value;
-            const text = encodeURIComponent(`FrameEdit Inquiry:\n\nHello, I am ${name}.\nI am interested in: ${service}.\n\nBrief Idea:\n${idea}`);
-            window.open(`https://wa.me/${phoneNumber}?text=${text}`);
-        });
-
-        window.onload = renderWork;
+            // Optional: initCharts() logic here if you kept it
+        };
     </script>
 </body>
 </html>
