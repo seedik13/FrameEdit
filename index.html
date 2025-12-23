@@ -10,8 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         tailwind.config = {
@@ -21,10 +19,8 @@
                         bgDark: '#050505',
                         cardBg: '#0F0F0F',
                         accent: '#00FFAE', 
-                        accentSecondary: '#5EFFC4', 
-                        textMain: '#FFFFFF',
-                        textMuted: '#A0A0A0',
                         borderColor: 'rgba(0, 255, 174, 0.15)',
+                        textMuted: '#A0A0A0',
                     },
                     fontFamily: {
                         display: ['Clash Display', 'sans-serif'],
@@ -37,142 +33,143 @@
 
     <style>
         body { font-family: 'Inter', 'IBM Plex Sans Arabic', sans-serif; background-color: #050505; color: white; }
-        [dir="rtl"] body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
-        
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #00FFAE; border-radius: 10px; }
-
         .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 174, 0.1); }
         .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.15) 0%, transparent 70%); }
-        .neon-border { border: 1px solid #00FFAE; box-shadow: 0 0 10px rgba(0, 255, 174, 0.3); }
-
-        .nav-link-active { color: #00FFAE; }
     </style>
 </head>
-<body class="overflow-x-hidden antialiased selection:bg-accent selection:text-black">
+<body class="overflow-x-hidden antialiased">
 
     <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 glass z-50">
-        <div class="font-display text-2xl font-bold tracking-tight cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+        <div id="logo-trigger" class="font-display text-2xl font-bold tracking-tight cursor-pointer select-none">
             FRAME<span class="text-accent">EDIT</span>
         </div>
-        
         <div class="hidden md:flex items-center gap-8">
-            <a href="#view-home" data-i18n="nav-home" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Home</a>
-            <a href="#view-work" data-i18n="nav-work" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Work</a>
-            <a href="#view-insights" data-i18n="nav-insights" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Insights</a>
-            <a href="#view-contact" data-i18n="nav-contact" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Contact</a>
-            
-            <select onchange="changeLanguage(this.value)" class="bg-transparent border border-borderColor text-accent text-xs p-1 rounded outline-none cursor-pointer font-bold">
-                <option value="en" class="bg-bgDark">EN</option>
-                <option value="fr" class="bg-bgDark">FR</option>
-                <option value="ar" class="bg-bgDark">AR</option>
-            </select>
+            <a href="#view-home" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Home</a>
+            <a href="#view-work" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Work</a>
+            <a href="#view-contact" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Contact</a>
         </div>
-
-        <a href="#view-contact" data-i18n="btn-start" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,174,0.3)]">
-            Start Now
-        </a>
+        <a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all">Start Now</a>
     </nav>
 
     <main>
         <section id="view-home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 hero-gradient relative">
             <div class="max-w-4xl z-10">
-                <div class="inline-block px-4 py-1 border border-accent/30 rounded-full text-accent text-[10px] uppercase tracking-[0.3em] mb-6 font-bold bg-accent/5">
-                    Creative Video Agency
-                </div>
-                <h1 id="hero-title" class="font-display text-5xl md:text-8xl font-bold mb-8 leading-tight uppercase tracking-tighter">
-                    Modern <br><span class="text-accent">Visual Craft</span>
-                </h1>
-                <p id="hero-desc" class="text-textMuted text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                    Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.
-                </p>
-                <div class="flex flex-wrap gap-6 justify-center">
-                    <a href="#view-work" data-i18n="btn-view-work" class="neon-border bg-transparent text-accent px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-accent hover:text-black transition-all">
-                        View Projects
-                    </a>
-                    <a href="#view-contact" data-i18n="nav-contact" class="bg-white/5 border border-white/10 text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white/10 transition-all">
-                        Get In Touch
-                    </a>
-                </div>
-            </div>
-            <div class="absolute bottom-10 animate-bounce opacity-30">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+                <h1 class="font-display text-5xl md:text-8xl font-bold mb-8 uppercase tracking-tighter">Modern <br><span class="text-accent">Visual Craft</span></h1>
+                <p class="text-textMuted text-lg mb-12 max-w-2xl mx-auto">Elevating brands through cinematic storytelling and high-end post-production.</p>
+                <a href="#view-work" class="bg-accent text-black px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:brightness-110 transition-all">View Projects</a>
             </div>
         </section>
 
         <section id="view-work" class="px-6 lg:px-16 py-32 max-w-[1440px] mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                <div class="max-w-xl">
-                    <h2 data-i18n="work-title" class="font-display text-4xl md:text-6xl font-bold mb-6">Selected Works</h2>
-                    <p data-i18n="work-desc" class="text-textMuted text-lg">A curated selection of our high-impact video projects and motion designs.</p>
-                </div>
-                <div class="flex bg-cardBg p-1 rounded-xl border border-borderColor">
-                    <button onclick="filterProjects('all')" data-i18n="filter-all" class="px-6 py-2 rounded-lg bg-accent text-black font-bold text-xs uppercase tracking-widest">All</button>
-                    <button onclick="filterProjects('Motion')" data-i18n="filter-motion" class="px-6 py-2 rounded-lg text-textMuted font-bold text-xs uppercase tracking-widest hover:text-white transition-all">Motion</button>
-                    <button onclick="filterProjects('Editing')" data-i18n="filter-editing" class="px-6 py-2 rounded-lg text-textMuted font-bold text-xs uppercase tracking-widest hover:text-white transition-all">Editing</button>
-                </div>
-            </div>
-            
+            <h2 class="font-display text-4xl md:text-6xl font-bold mb-20 text-center uppercase tracking-tighter">Selected <span class="text-accent">Works</span></h2>
             <div id="portfolio-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
                 </div>
         </section>
 
-        </main>
+        <section id="admin-panel" class="hidden px-6 py-20 bg-accent/5 border-y border-accent/20">
+            <div class="max-w-4xl mx-auto">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-accent font-display text-xl uppercase font-bold">Admin Dashboard</h3>
+                    <button onclick="hideAdmin()" class="text-white/50 hover:text-white text-xs uppercase underline">Close Panel</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <input type="text" id="admin-vimeo-id" placeholder="Vimeo Video ID" class="bg-black border border-borderColor p-4 rounded-xl outline-none focus:border-accent text-white">
+                    <input type="text" id="admin-title" placeholder="Video Title" class="bg-black border border-borderColor p-4 rounded-xl outline-none focus:border-accent text-white">
+                    <button onclick="addNewWork()" class="bg-accent text-black font-bold rounded-xl py-4 hover:brightness-110 transition-all">Add Project</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="view-contact" class="px-6 py-32 border-t border-white/5">
+            <div class="max-w-3xl mx-auto bg-cardBg border border-borderColor p-10 md:p-20 rounded-[40px] text-center">
+                <h2 class="font-display text-4xl md:text-6xl font-bold mb-6 uppercase tracking-tighter">Let's Create</h2>
+                <p class="text-textMuted mb-10 text-lg">Have a vision? We have the tools. Let's talk.</p>
+                <button onclick="window.open('https://wa.me/213668591373')" class="bg-accent text-black px-12 py-5 rounded-2xl font-bold uppercase tracking-[0.2em] hover:shadow-[0_0_20px_rgba(0,255,174,0.3)] transition-all">WhatsApp Me</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 text-center border-t border-white/5 text-textMuted text-xs tracking-widest">
+        &copy; 2025 FRAMEEDIT STUDIO.
+    </footer>
 
     <script>
-        const apiKey = ""; 
-        const phoneNumber = "213668591373";
-
-        const translations = { /* ... (Same as your original) ... */ };
-
-        // الأبعاد الديناميكية: تقدر تزيد ratio لكل فيديو (اختياري)
-        const projects = [
-            { id: '1016254030', title: 'Street Fashion Edit', category: 'Editing', ratio: '16/9' },
-            { id: '913349639', title: 'Corporate Motion Reveal', category: 'Motion', ratio: '16/9' },
-            { id: '76979871', title: 'Cinematic Storytelling', category: 'Editing', ratio: '16/9' },
-            { id: '343336442', title: 'Brand Identity Animation', category: 'Motion', ratio: '16/9' }
+        // 1. Data Management
+        let myWorks = JSON.parse(localStorage.getItem('savedWorks')) || [
+            { id: '1016254030', title: 'Street Fashion Edit' },
+            { id: '913349639', title: 'Corporate Motion Reveal' }
         ];
 
-        function renderWork(filter = 'all') {
+        // 2. Render Function
+        function renderPortfolio() {
             const grid = document.getElementById('portfolio-grid');
             grid.innerHTML = '';
-            const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
-            
-            filtered.forEach(p => {
-                const ratio = p.ratio || '16/9'; // Default ratio
+            myWorks.forEach((work, index) => {
                 grid.innerHTML += `
-                    <div class="bg-cardBg rounded-[32px] p-6 border border-borderColor group hover:border-accent/40 transition-all duration-500 hover:translate-y-[-8px]">
-                        <div class="w-full mb-8 shadow-2xl rounded-2xl overflow-hidden bg-black" style="aspect-ratio: ${ratio};">
-                            <iframe 
-                                src="https://player.vimeo.com/video/${p.id}?badge=0&autopause=0&player_id=0&app_id=58479" 
-                                class="w-full h-full"
-                                frameborder="0" 
-                                allow="autoplay; fullscreen; picture-in-picture" 
-                                allowfullscreen 
-                                title="${p.title}">
-                            </iframe>
+                    <div class="bg-cardBg rounded-[32px] p-6 border border-borderColor group transition-all duration-500 hover:translate-y-[-8px]">
+                        <div class="w-full mb-8 shadow-2xl rounded-2xl overflow-hidden bg-black" style="aspect-ratio: 16/9;">
+                            <iframe src="https://player.vimeo.com/video/${work.id}" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
                         </div>
-                        <div class="flex justify-between items-end px-2">
-                            <div>
-                                <span class="text-accent text-[10px] font-bold uppercase tracking-widest mb-2 block">${p.category}</span>
-                                <h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3>
-                            </div>
-                            <div class="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-accent group-hover:text-black transition-all">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                            </div>
+                        <div class="flex justify-between items-center px-2">
+                            <h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${work.title}</h3>
+                            <button onclick="deleteWork(${index})" class="admin-only hidden text-red-500 text-[10px] font-bold uppercase hover:underline">Delete</button>
                         </div>
                     </div>
                 `;
             });
+            // Show delete buttons if admin panel is open
+            if (!document.getElementById('admin-panel').classList.contains('hidden')) {
+                document.querySelectorAll('.admin-only').forEach(el => el.classList.remove('hidden'));
+            }
         }
 
-        // باقي الـ Functions (changeLanguage, filterProjects, initCharts, etc.)
-        // تبقى كما كانت في ملفك الأصلي
-        window.onload = () => {
-            renderWork();
-            // initCharts(); // Don't forget to keep your chart init!
-        };
+        // 3. Admin Access Logic (Secret Click)
+        let clickCount = 0;
+        document.getElementById('logo-trigger').addEventListener('click', () => {
+            clickCount++;
+            if (clickCount === 5) {
+                const pass = prompt("Enter Admin Password:");
+                if (pass === "1234") { // دير المودباس لي يعجبك هنا
+                    document.getElementById('admin-panel').classList.remove('hidden');
+                    renderPortfolio(); // Refresh to show delete buttons
+                    alert("Admin Mode Active");
+                } else {
+                    alert("Wrong Password");
+                }
+                clickCount = 0;
+            }
+            setTimeout(() => { clickCount = 0; }, 3000); // Reset clicks after 3 seconds
+        });
+
+        function hideAdmin() {
+            document.getElementById('admin-panel').classList.add('hidden');
+            renderPortfolio();
+        }
+
+        // 4. Portfolio Actions
+        function addNewWork() {
+            const id = document.getElementById('admin-vimeo-id').value;
+            const title = document.getElementById('admin-title').value;
+            if (id && title) {
+                myWorks.push({ id, title });
+                localStorage.setItem('savedWorks', JSON.stringify(myWorks));
+                renderPortfolio();
+                document.getElementById('admin-vimeo-id').value = '';
+                document.getElementById('admin-title').value = '';
+            }
+        }
+
+        function deleteWork(index) {
+            if (confirm("Delete this project?")) {
+                myWorks.splice(index, 1);
+                localStorage.setItem('savedWorks', JSON.stringify(myWorks));
+                renderPortfolio();
+            }
+        }
+
+        window.onload = renderPortfolio;
     </script>
 </body>
 </html>
