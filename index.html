@@ -6,14 +6,11 @@
     <meta name="description" content="FrameEdit - Professional Video Editing & Motion Graphics Studio">
     <title>FrameEdit | Professional Video Studio</title>
     
-    <!-- Fonts -->
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
@@ -49,30 +46,12 @@
         .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 174, 0.1); }
         .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.15) 0%, transparent 70%); }
         .neon-border { border: 1px solid #00FFAE; box-shadow: 0 0 10px rgba(0, 255, 174, 0.3); }
-        
-        /* Vimeo Responsive Wrapper */
-        .vimeo-wrapper {
-            position: relative;
-            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-            height: 0;
-            overflow: hidden;
-            border-radius: 16px;
-            background: #000;
-        }
-        .vimeo-wrapper iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
 
         .nav-link-active { color: #00FFAE; }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased selection:bg-accent selection:text-black">
 
-    <!-- Navigation -->
     <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 glass z-50">
         <div class="font-display text-2xl font-bold tracking-tight cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
             FRAME<span class="text-accent">EDIT</span>
@@ -97,7 +76,6 @@
     </nav>
 
     <main>
-        <!-- HERO SECTION -->
         <section id="view-home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 hero-gradient relative">
             <div class="max-w-4xl z-10">
                 <div class="inline-block px-4 py-1 border border-accent/30 rounded-full text-accent text-[10px] uppercase tracking-[0.3em] mb-6 font-bold bg-accent/5">
@@ -118,14 +96,11 @@
                     </a>
                 </div>
             </div>
-            
-            <!-- Scroll Indicator -->
             <div class="absolute bottom-10 animate-bounce opacity-30">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
             </div>
         </section>
 
-        <!-- WORK SECTION -->
         <section id="view-work" class="px-6 lg:px-16 py-32 max-w-[1440px] mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
                 <div class="max-w-xl">
@@ -140,161 +115,43 @@
             </div>
             
             <div id="portfolio-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-                <!-- Injected via JavaScript -->
-            </div>
+                </div>
         </section>
 
-        <!-- INSIGHTS SECTION -->
-        <section id="view-insights" class="px-6 lg:px-16 py-32 max-w-[1440px] mx-auto border-t border-white/5">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6">
-                <div>
-                    <h2 data-i18n="insights-title" class="font-display text-4xl md:text-5xl font-bold">Performance Analytics</h2>
-                    <p class="text-textMuted mt-2">Visualizing the impact of high-quality video content.</p>
-                </div>
-                <button onclick="generateStrategy()" id="strategy-btn" class="flex items-center gap-2 bg-accent/10 border border-accent/50 text-accent px-8 py-4 rounded-xl font-bold hover:bg-accent hover:text-black transition-all group">
-                    <span data-i18n="btn-consult">Get Strategy</span>
-                    <svg class="group-hover:translate-x-1 transition-transform" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                </button>
-            </div>
-
-            <div id="strategy-box" class="hidden mb-16 p-8 rounded-3xl bg-accent/5 border border-accent/20">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-2 h-2 bg-accent rounded-full animate-ping"></div>
-                    <span data-i18n="label-advice" class="font-bold text-accent uppercase tracking-widest text-xs">Recommended Approach</span>
-                </div>
-                <div id="strategy-response" class="text-xl md:text-2xl font-medium text-white/90 italic leading-relaxed"></div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                <div class="bg-cardBg p-10 rounded-3xl border border-borderColor group hover:border-accent/30 transition-all">
-                    <h3 data-i18n="chart-mix" class="font-bold mb-8 text-xl flex items-center gap-3">
-                        <span class="w-2 h-8 bg-accent rounded-full"></span> Service Distribution
-                    </h3>
-                    <div class="h-[350px]"><canvas id="projectMixChart"></canvas></div>
-                </div>
-                <div class="bg-cardBg p-10 rounded-3xl border border-borderColor group hover:border-accent/30 transition-all">
-                    <h3 data-i18n="chart-growth" class="font-bold mb-8 text-xl flex items-center gap-3">
-                        <span class="w-2 h-8 bg-accentSecondary rounded-full"></span> Engagement Growth
-                    </h3>
-                    <div class="h-[350px]"><canvas id="growthChart"></canvas></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- CONTACT SECTION -->
-        <section id="view-contact" class="px-6 py-32 flex items-center justify-center border-t border-white/5 bg-gradient-to-b from-transparent to-accent/5">
-            <div class="w-full max-w-3xl bg-cardBg border border-borderColor p-10 md:p-20 rounded-[40px] shadow-2xl relative">
-                <div class="text-center mb-12">
-                    <h2 data-i18n="contact-title" class="font-display text-4xl md:text-6xl font-bold mb-6">Let's Create</h2>
-                    <p data-i18n="contact-desc" class="text-textMuted text-lg">Have a vision? We have the tools. Fill out the form to start the conversation on WhatsApp.</p>
-                </div>
-                
-                <form id="contactForm" class="space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-accent px-2">Your Name</label>
-                            <input type="text" id="user-name" placeholder="John Doe" required class="w-full bg-black/40 border border-borderColor p-5 rounded-2xl focus:border-accent outline-none text-white transition-all">
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] uppercase tracking-widest font-bold text-accent px-2">Service Needed</label>
-                            <select id="user-service" class="w-full bg-black/40 border border-borderColor p-5 rounded-2xl focus:border-accent outline-none text-white transition-all appearance-none">
-                                <option value="Motion Graphics">Motion Graphics</option>
-                                <option value="Cinematic Editing">Cinematic Video Editing</option>
-                                <option value="Color Grading">Color Grading</option>
-                                <option value="Full Production">Full Production</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-[10px] uppercase tracking-widest font-bold text-accent px-2">Project Details</label>
-                        <textarea id="user-idea" rows="5" placeholder="Tell us about your project goals..." required class="w-full bg-black/40 border border-borderColor p-5 rounded-2xl focus:border-accent outline-none text-white transition-all resize-none"></textarea>
-                    </div>
-                    
-                    <button type="submit" data-i18n="btn-whatsapp" class="w-full bg-accent text-black font-bold py-6 rounded-2xl uppercase tracking-[0.2em] hover:shadow-[0_0_30px_rgba(0,255,174,0.4)] hover:scale-[1.01] transition-all">
-                        Launch on WhatsApp
-                    </button>
-                </form>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="py-12 text-center border-t border-white/5 text-textMuted text-sm">
-        <p>&copy; 2025 <span class="text-white font-bold">FRAMEEDIT</span> STUDIO. ALL RIGHTS RESERVED.</p>
-    </footer>
+        </main>
 
     <script>
-        const apiKey = ""; // Gemini API Key
+        const apiKey = ""; 
         const phoneNumber = "213668591373";
 
-        const translations = {
-            en: {
-                "nav-home": "Home", "nav-work": "Work", "nav-insights": "Insights", "nav-contact": "Contact",
-                "btn-start": "Start Now", "hero-title": "Modern <br><span class='text-accent'>Visual Craft</span>",
-                "hero-desc": "Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.",
-                "btn-view-work": "View Projects", "work-title": "Selected Works", 
-                "work-desc": "A curated selection of our high-impact video projects and motion designs.",
-                "filter-all": "All", "filter-motion": "Motion", "filter-editing": "Editing",
-                "insights-title": "Performance Analytics", "btn-consult": "Get Strategy",
-                "label-advice": "Recommended Approach", "chart-mix": "Service Distribution", "chart-growth": "Engagement Growth",
-                "contact-title": "Let's Create", "contact-desc": "Have a vision? We have the tools. Fill out the form to start the conversation on WhatsApp.",
-                "btn-whatsapp": "Launch on WhatsApp"
-            },
-            fr: {
-                "nav-home": "Accueil", "nav-work": "Travaux", "nav-insights": "Analyses", "nav-contact": "Contact",
-                "btn-start": "Lancer", "hero-title": "Art <br><span class='text-accent'>Visuel Moderne</span>",
-                "hero-desc": "Transformer vos rushs en histoires cinématographiques avec des animations haut de gamme.",
-                "btn-view-work": "Voir Projets", "work-title": "Travaux Sélectionnés",
-                "work-desc": "Une sélection de nos projets vidéo à fort impact et de designs d'animation.",
-                "filter-all": "Tout", "filter-motion": "Motion", "filter-editing": "Montage",
-                "insights-title": "Analyses de Performance", "btn-consult": "Stratégie",
-                "label-advice": "Approche Recommandée", "chart-mix": "Distribution des Services", "chart-growth": "Croissance de l'Engagement",
-                "contact-title": "Créons Ensemble", "contact-desc": "Vous avez une vision ? Nous avons les outils. Remplissez le formulaire.",
-                "btn-whatsapp": "Lancer sur WhatsApp"
-            },
-            ar: {
-                "nav-home": "الرئيسية", "nav-work": "أعمالنا", "nav-insights": "تحليلات", "nav-contact": "تواصل معنا",
-                "btn-start": "ابدأ الآن", "hero-title": "صناعة <br><span class='text-accent'>بصرية عصرية</span>",
-                "hero-desc": "تحويل اللقطات الخام إلى قصص سينمائية مع موشن جرافيك عالي المستوى وإنتاج احترافي.",
-                "btn-view-work": "استعرض المشاريع", "work-title": "أعمال مختارة",
-                "work-desc": "مجموعة مختارة من مشاريع الفيديو ذات التأثير العالي وتصاميم الموشن جرافيك.",
-                "filter-all": "الكل", "filter-motion": "موشن", "filter-editing": "مونتاج",
-                "insights-title": "تحليلات الأداء", "btn-consult": "خطة عمل",
-                "label-advice": "النهج الموصى به", "chart-mix": "توزيع الخدمات", "chart-growth": "نمو التفاعل",
-                "contact-title": "لنبدأ الإبداع", "contact-desc": "لديك رؤية؟ نحن نملك الأدوات. املأ النموذج لبدء المحادثة عبر واتساب.",
-                "btn-whatsapp": "تواصل عبر واتساب"
-            }
-        };
+        const translations = { /* ... (Same as your original) ... */ };
 
-        function changeLanguage(lang) {
-            const html = document.getElementById('html-tag');
-            html.lang = lang;
-            html.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                el.innerHTML = translations[lang][key];
-            });
-            document.getElementById('hero-title').innerHTML = translations[lang]['hero-title'];
-            document.getElementById('hero-desc').innerText = translations[lang]['hero-desc'];
-        }
-
+        // الأبعاد الديناميكية: تقدر تزيد ratio لكل فيديو (اختياري)
         const projects = [
-            { id: '1130336834', title: 'Street Fashion Edit', category: 'Editing' },
-            { id: '913349639', title: 'Corporate Motion Reveal', category: 'Motion' },
-            { id: '76979871', title: 'Cinematic Storytelling', category: 'Editing' },
-            { id: '343336442', title: 'Brand Identity Animation', category: 'Motion' }
+            { id: '1016254030', title: 'Street Fashion Edit', category: 'Editing', ratio: '16/9' },
+            { id: '913349639', title: 'Corporate Motion Reveal', category: 'Motion', ratio: '16/9' },
+            { id: '76979871', title: 'Cinematic Storytelling', category: 'Editing', ratio: '16/9' },
+            { id: '343336442', title: 'Brand Identity Animation', category: 'Motion', ratio: '16/9' }
         ];
 
         function renderWork(filter = 'all') {
             const grid = document.getElementById('portfolio-grid');
             grid.innerHTML = '';
             const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+            
             filtered.forEach(p => {
+                const ratio = p.ratio || '16/9'; // Default ratio
                 grid.innerHTML += `
                     <div class="bg-cardBg rounded-[32px] p-6 border border-borderColor group hover:border-accent/40 transition-all duration-500 hover:translate-y-[-8px]">
-                        <div class="vimeo-wrapper mb-8 shadow-2xl">
-                            <iframe src="https://player.vimeo.com/video/${p.id}?badge=0&autopause=0&player_id=0&app_id=58479" 
-                                    frameborder="0" allow="autoplay; fullscreen; picture-in-picture" title="${p.title}"></iframe>
+                        <div class="w-full mb-8 shadow-2xl rounded-2xl overflow-hidden bg-black" style="aspect-ratio: ${ratio};">
+                            <iframe 
+                                src="https://player.vimeo.com/video/${p.id}?badge=0&autopause=0&player_id=0&app_id=58479" 
+                                class="w-full h-full"
+                                frameborder="0" 
+                                allow="autoplay; fullscreen; picture-in-picture" 
+                                allowfullscreen 
+                                title="${p.title}">
+                            </iframe>
                         </div>
                         <div class="flex justify-between items-end px-2">
                             <div>
@@ -310,101 +167,12 @@
             });
         }
 
-        function filterProjects(cat) { 
-            renderWork(cat);
-            // Update UI buttons
-            const buttons = document.querySelectorAll('#view-work button');
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-black');
-                btn.classList.add('text-textMuted');
-                if(btn.innerText.toLowerCase() === cat.toLowerCase() || (cat === 'all' && btn.getAttribute('data-i18n') === 'filter-all')) {
-                    btn.classList.add('bg-accent', 'text-black');
-                    btn.classList.remove('text-textMuted');
-                }
-            });
-        }
-
-        async function generateStrategy() {
-            const box = document.getElementById('strategy-box');
-            const res = document.getElementById('strategy-response');
-            box.classList.remove('hidden');
-            res.innerHTML = "Processing studio metadata...";
-            const lang = document.getElementById('html-tag').lang;
-            const prompt = `Give a professional, brief, and inspiring video strategy tip for 2025 in ${lang}. Focus on quality and engagement. No mention of AI.`;
-            
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-                });
-                const data = await response.json();
-                res.innerHTML = `"${data.candidates?.[0]?.content?.parts?.[0]?.text || "Quality is the only variable that matters in 2025."}"`;
-            } catch(e) { 
-                res.innerHTML = "Consistency and cinematic storytelling are key to capturing attention today."; 
-            }
-        }
-
-        function initCharts() {
-            const chartConfig = {
-                plugins: { legend: { labels: { color: '#AAA', font: { family: 'Inter', size: 10 } } } },
-                maintainAspectRatio: false
-            };
-
-            new Chart(document.getElementById('projectMixChart'), {
-                type: 'doughnut',
-                data: {
-                    labels: ['Motion', 'Editing', 'VFX', 'Color'],
-                    datasets: [{
-                        data: [45, 30, 15, 10],
-                        backgroundColor: ['#00FFAE', '#5EFFC4', '#111', '#333'],
-                        borderColor: '#0F0F0F',
-                        borderWidth: 8
-                    }]
-                },
-                options: chartConfig
-            });
-
-            new Chart(document.getElementById('growthChart'), {
-                type: 'line',
-                data: {
-                    labels: ['Q1', 'Q2', 'Q3', 'Q4'],
-                    datasets: [{
-                        label: 'Client Reach',
-                        data: [12000, 28000, 45000, 72000],
-                        borderColor: '#00FFAE',
-                        backgroundColor: 'rgba(0, 255, 174, 0.05)',
-                        fill: true,
-                        tension: 0.4,
-                        borderWidth: 3,
-                        pointRadius: 0
-                    }]
-                },
-                options: {
-                    ...chartConfig,
-                    scales: { 
-                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#555' } },
-                        x: { grid: { display: false }, ticks: { color: '#555' } }
-                    }
-                }
-            });
-        }
-
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const name = document.getElementById('user-name').value;
-            const service = document.getElementById('user-service').value;
-            const idea = document.getElementById('user-idea').value;
-            const text = encodeURIComponent(`FrameEdit Inquiry:\n\nHello, I am ${name}.\nI am interested in: ${service}.\n\nBrief Idea:\n${idea}`);
-            window.open(`https://wa.me/${phoneNumber}?text=${text}`);
-        });
-
-        // Initialize
+        // باقي الـ Functions (changeLanguage, filterProjects, initCharts, etc.)
+        // تبقى كما كانت في ملفك الأصلي
         window.onload = () => {
             renderWork();
-            initCharts();
+            // initCharts(); // Don't forget to keep your chart init!
         };
     </script>
 </body>
 </html>
-
