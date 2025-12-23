@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="FrameEdit - Professional Video Editing & Motion Graphics Studio">
     <title>FrameEdit | Professional Video Studio</title>
-    
+
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
-    
+
     <script>
         tailwind.config = {
             theme: {
@@ -18,11 +18,9 @@
                     colors: {
                         bgDark: '#050505',
                         cardBg: '#0F0F0F',
-                        accent: '#00FFAE', 
-                        accentSecondary: '#5EFFC4', 
-                        textMain: '#FFFFFF',
+                        accent: '#00FFAE',
                         textMuted: '#A0A0A0',
-                        borderColor: 'rgba(0, 255, 174, 0.15)',
+                        borderColor: 'rgba(0,255,174,0.15)',
                     },
                     fontFamily: {
                         display: ['Clash Display', 'sans-serif'],
@@ -32,116 +30,141 @@
             }
         }
     </script>
-
-    <style>
-        body { font-family: 'Inter', 'IBM Plex Sans Arabic', sans-serif; background-color: #050505; color: white; }
-        [dir="rtl"] body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #050505; }
-        ::-webkit-scrollbar-thumb { background: #00FFAE; border-radius: 10px; }
-        .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 174, 0.1); }
-        .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.15) 0%, transparent 70%); }
-        .vimeo-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; background: #000; }
-        .vimeo-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-    </style>
 </head>
-<body class="overflow-x-hidden antialiased selection:bg-accent selection:text-black">
 
-    <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 glass z-50">
-        <div class="font-display text-2xl font-bold tracking-tight cursor-pointer">
-            FRAME<span class="text-accent">EDIT</span>
+<body class="bg-bgDark text-white overflow-x-hidden">
+
+<nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 bg-black/70 backdrop-blur z-50">
+    <div class="font-display text-2xl font-bold">
+        FRAME<span class="text-accent">EDIT</span>
+    </div>
+    <a href="#view-contact"
+       class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm">
+        Start Now
+    </a>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section id="view-home" class="min-h-screen flex items-center justify-center text-center px-6">
+    <div>
+        <h1 class="font-display text-6xl md:text-8xl font-bold mb-6">
+            Modern <span class="text-accent">Visual Craft</span>
+        </h1>
+        <p class="text-textMuted max-w-xl mx-auto">
+            Professional Video Editing & Motion Graphics
+        </p>
+    </div>
+</section>
+
+<!-- WORK -->
+<section id="view-work" class="px-6 lg:px-16 py-32 max-w-[1400px] mx-auto">
+    <h2 class="font-display text-5xl font-bold mb-12 text-center">
+        Selected Works
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div class="bg-cardBg p-6 rounded-3xl border border-borderColor">
+            <iframe class="w-full aspect-video rounded-xl"
+                src="https://player.vimeo.com/video/1016254030" allowfullscreen></iframe>
         </div>
-        <a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,174,0.3)]">
-            Start Now
-        </a>
-    </nav>
+        <div class="bg-cardBg p-6 rounded-3xl border border-borderColor">
+            <iframe class="w-full aspect-video rounded-xl"
+                src="https://player.vimeo.com/video/913349639" allowfullscreen></iframe>
+        </div>
+    </div>
+</section>
 
-    <main>
-        <section id="view-home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 hero-gradient relative">
-            <h1 class="font-display text-5xl md:text-8xl font-bold mb-8 uppercase tracking-tighter">
-                Modern <br><span class="text-accent">Visual Craft</span>
-            </h1>
-        </section>
+<!-- CONTACT -->
+<section id="view-contact" class="px-6 lg:px-16 py-32 max-w-4xl mx-auto">
+    <h2 class="font-display text-5xl font-bold mb-12 text-center">
+        Start Your Project
+    </h2>
 
-        <section id="view-contact" class="px-6 lg:px-16 py-32 max-w-4xl mx-auto">
-            <div class="bg-cardBg border border-borderColor p-8 md:p-12 rounded-[40px] shadow-2xl">
-                <h2 class="font-display text-4xl font-bold mb-10 text-center uppercase tracking-tighter">Start Your <span class="text-accent">Project</span></h2>
-                
-                <form id="whatsapp-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <input type="text" id="name" placeholder="Full Name" required class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                    <input type="email" id="email" placeholder="Email Address" required class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                    <input type="tel" id="phone" placeholder="Phone Number" required class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                    
-                    <select id="project-type" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted">
-                        <option value="" disabled selected>Project Type</option>
-                        <option value="Video Editing">Video Editing</option>
-                        <option value="Motion Graphics">Motion Graphics</option>
-                    </select>
+    <form id="whatsappForm"
+          class="bg-cardBg p-10 rounded-3xl border border-borderColor space-y-6">
 
-                    <select id="orientation" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted">
-                        <option value="" disabled selected>Orientation</option>
-                        <option value="Vertical (9:16)">Vertical (Reels/TikTok)</option>
-                        <option value="Horizontal (16:9)">Horizontal (YouTube/TV)</option>
-                    </select>
+        <input id="name" required placeholder="Full Name"
+               class="w-full bg-black p-4 rounded-xl border border-borderColor">
 
-                    <input type="text" id="purpose" placeholder="Video Purpose (e.g. Ads, Reel)" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                    <input type="text" id="duration" placeholder="Estimated Duration (e.g. 60s)" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                    <input type="text" id="deadline" placeholder="Deadline (e.g. Next Week)" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                    
-                    <input type="text" id="style" placeholder="Style Description" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all md:col-span-2 text-white">
-                    <input type="text" id="colors" placeholder="Color Preference" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all md:col-span-2 text-white">
-                    
-                    <textarea id="notes" placeholder="Additional Notes" rows="4" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all md:col-span-2 text-white"></textarea>
+        <input id="email" required type="email" placeholder="Email"
+               class="w-full bg-black p-4 rounded-xl border border-borderColor">
 
-                    <button type="submit" class="md:col-span-2 bg-accent text-black font-bold py-5 rounded-2xl hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(0,255,174,0.2)] uppercase tracking-widest">
-                        Send to WhatsApp
-                    </button>
-                </form>
-            </div>
-        </section>
-    </main>
+        <input id="phone" required placeholder="WhatsApp Number"
+               class="w-full bg-black p-4 rounded-xl border border-borderColor">
 
-    <script>
-        const phoneNumber = "213668591373";
+        <select id="projectType" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+            <option>Video Editing</option>
+            <option>Motion Graphics</option>
+            <option>Reels / Shorts</option>
+            <option>Advertising</option>
+        </select>
 
-        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+        <select id="orientation" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+            <option>Vertical</option>
+            <option>Horizontal</option>
+        </select>
 
-            // Collect all fields
-            const data = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                type: document.getElementById('project-type').value,
-                orientation: document.getElementById('orientation').value,
-                purpose: document.getElementById('purpose').value,
-                duration: document.getElementById('duration').value,
-                deadline: document.getElementById('deadline').value,
-                style: document.getElementById('style').value,
-                colors: document.getElementById('colors').value,
-                notes: document.getElementById('notes').value
-            };
+        <select id="duration" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+            <option>&lt; 30s</option>
+            <option>30 – 60s</option>
+            <option>1 – 3 min</option>
+            <option>+ 3 min</option>
+        </select>
 
-            // Format the WhatsApp message
-            let message = `*Hello FrameEdit, I want to start a new video project:* \n\n`;
-            message += `👤 *Name:* ${data.name}\n`;
-            message += `📧 *Email:* ${data.email}\n`;
-            message += `📞 *Phone:* ${data.phone}\n`;
-            message += `🎬 *Project Type:* ${data.type || 'N/A'}\n`;
-            message += `📱 *Orientation:* ${data.orientation || 'N/A'}\n`;
-            message += `🎯 *Purpose:* ${data.purpose}\n`;
-            message += `⏳ *Duration:* ${data.duration}\n`;
-            message += `📅 *Deadline:* ${data.deadline}\n`;
-            message += `🎨 *Style:* ${data.style}\n`;
-            message += `🌈 *Colors:* ${data.colors}\n`;
-            message += `📝 *Notes:* ${data.notes || 'None'}`;
+        <select id="deadline" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+            <option>Urgent</option>
+            <option>3–5 days</option>
+            <option>1 week</option>
+            <option>Flexible</option>
+        </select>
 
-            // URL Encoding and Redirect
-            const encodedMessage = encodeURIComponent(message);
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            
-            window.open(whatsappUrl, '_blank');
-        });
-    </script>
+        <input id="colors" placeholder="Preferred colors"
+               class="w-full bg-black p-4 rounded-xl border border-borderColor">
+
+        <textarea id="style" rows="4" placeholder="Style / references"
+                  class="w-full bg-black p-4 rounded-xl border border-borderColor"></textarea>
+
+        <textarea id="notes" rows="3" placeholder="Additional notes"
+                  class="w-full bg-black p-4 rounded-xl border border-borderColor"></textarea>
+
+        <button type="submit"
+                class="w-full bg-accent text-black font-bold py-4 rounded-xl">
+            Send via WhatsApp
+        </button>
+    </form>
+</section>
+
+</main>
+
+<script>
+document.getElementById("whatsappForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const msg = `
+New Video Project Request
+
+Name: ${name.value}
+Email: ${email.value}
+Phone: ${phone.value}
+
+Project: ${projectType.value}
+Orientation: ${orientation.value}
+Duration: ${duration.value}
+Deadline: ${deadline.value}
+
+Colors: ${colors.value}
+Style: ${style.value}
+Notes: ${notes.value}
+    `;
+
+    const phoneNumber = "213668591373";
+    window.open(
+        "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(msg),
+        "_blank"
+    );
+});
+</script>
+
 </body>
 </html>
