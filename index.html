@@ -11,8 +11,6 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
     <script>
         tailwind.config = {
             theme: {
@@ -62,6 +60,20 @@
             width: 100%;
             height: 100%;
         }
+
+        /* Form Custom Styles */
+        input, select, textarea {
+            background: #0F0F0F !important;
+            border: 1px solid rgba(0, 255, 174, 0.15) !important;
+            color: white !important;
+            transition: all 0.3s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #00FFAE !important;
+            box-shadow: 0 0 10px rgba(0, 255, 174, 0.1);
+            outline: none;
+        }
+        label { color: #A0A0A0; font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; display: block; }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased selection:bg-accent selection:text-black">
@@ -71,9 +83,9 @@
             <button onclick="toggleAdminPanel()" class="absolute top-4 right-4 text-textMuted hover:text-white">✕</button>
             <h2 class="font-display text-2xl font-bold mb-6 text-accent">Admin Dashboard</h2>
             <div class="space-y-4">
-                <input type="text" id="new-video-title" placeholder="Project Title" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent">
-                <input type="text" id="new-video-id" placeholder="Vimeo Video ID" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent">
-                <select id="new-video-category" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent">
+                <input type="text" id="new-video-title" placeholder="Project Title" class="w-full p-3 rounded-xl">
+                <input type="text" id="new-video-id" placeholder="Vimeo Video ID" class="w-full p-3 rounded-xl">
+                <select id="new-video-category" class="w-full p-3 rounded-xl">
                     <option value="Editing">Editing</option>
                     <option value="Motion">Motion</option>
                 </select>
@@ -91,7 +103,6 @@
         <div class="hidden md:flex items-center gap-8">
             <a href="#view-home" data-i18n="nav-home" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Home</a>
             <a href="#view-work" data-i18n="nav-work" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Work</a>
-            <a href="#view-insights" data-i18n="nav-insights" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Insights</a>
             <a href="#view-contact" data-i18n="nav-contact" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Contact</a>
             
             <select onchange="changeLanguage(this.value)" class="bg-transparent border border-borderColor text-accent text-xs p-1 rounded outline-none cursor-pointer font-bold">
@@ -144,7 +155,121 @@
             <div id="portfolio-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"></div>
         </section>
 
-        </main>
+        <section id="view-contact" class="px-6 lg:px-16 py-32 bg-black relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-accent/5 blur-[120px] rounded-full"></div>
+            
+            <div class="max-w-4xl mx-auto relative z-10">
+                <div class="text-center mb-16">
+                    <h2 class="font-display text-4xl md:text-6xl font-bold mb-6 uppercase">Let's <span class="text-accent">Create</span> Together</h2>
+                    <p class="text-textMuted text-lg">Tell us about your project and let's build something extraordinary.</p>
+                </div>
+
+                <form id="project-form" class="space-y-12">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="col-span-1">
+                            <label>Full Name *</label>
+                            <input type="text" placeholder="John Doe" class="w-full p-4 rounded-2xl" required>
+                        </div>
+                        <div class="col-span-1">
+                            <label>Email Address *</label>
+                            <input type="email" placeholder="john@example.com" class="w-full p-4 rounded-2xl" required>
+                        </div>
+                        <div class="col-span-1">
+                            <label>WhatsApp / Phone *</label>
+                            <input type="tel" placeholder="+213 ..." class="w-full p-4 rounded-2xl" required>
+                        </div>
+                        <div class="col-span-1">
+                            <label>Company / Brand (Optional)</label>
+                            <input type="text" placeholder="Your Agency" class="w-full p-4 rounded-2xl">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label>Project Type</label>
+                            <select class="w-full p-4 rounded-2xl">
+                                <option>Video Editing</option>
+                                <option>Motion Graphics</option>
+                                <option>Social Media Content</option>
+                                <option>Advertising Video</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Video Format</label>
+                            <select class="w-full p-4 rounded-2xl">
+                                <option>Vertical (Reels / TikTok)</option>
+                                <option>Horizontal (YouTube / Web)</option>
+                                <option>Square</option>
+                                <option>Multiple Formats</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Video Purpose</label>
+                            <select class="w-full p-4 rounded-2xl">
+                                <option>Reel</option>
+                                <option>Advertisement (Ads)</option>
+                                <option>YouTube Video</option>
+                                <option>Promo / Brand Video</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Estimated Duration</label>
+                            <select class="w-full p-4 rounded-2xl">
+                                <option>Less than 30 seconds</option>
+                                <option>30s – 60s</option>
+                                <option>1 – 3 minutes</option>
+                                <option>More than 3 minutes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label>Deadline / Delivery</label>
+                            <select class="w-full p-4 rounded-2xl">
+                                <option>Urgent (24–48h)</option>
+                                <option>3–5 days</option>
+                                <option>1 week</option>
+                                <option>Flexible</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label>Color Preference</label>
+                            <input type="text" placeholder="e.g., Neon Blue & Dark Grey (or 'Suggest for me')" class="w-full p-4 rounded-2xl">
+                        </div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label>Style & Creative Direction</label>
+                            <textarea rows="3" placeholder="Describe the mood, style, or specific elements you want..." class="w-full p-4 rounded-2xl"></textarea>
+                        </div>
+                        <div>
+                            <label>Reference Links (YouTube, Vimeo, IG)</label>
+                            <input type="url" placeholder="https://..." class="w-full p-4 rounded-2xl">
+                        </div>
+                        <div>
+                            <label>Additional Notes</label>
+                            <textarea rows="4" placeholder="Any other details we should know?" class="w-full p-4 rounded-2xl"></textarea>
+                        </div>
+                        <div>
+                            <label>Upload Assets (Logo, Script, etc.)</label>
+                            <div class="border-2 border-dashed border-borderColor rounded-2xl p-8 text-center hover:border-accent transition-colors cursor-pointer bg-cardBg/50">
+                                <span class="text-textMuted text-sm">Drag & drop files or click to upload</span>
+                                <input type="file" class="hidden" id="file-upload">
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-accent text-black font-bold py-5 rounded-2xl text-lg uppercase tracking-widest hover:scale-[1.02] transition-all shadow-[0_0_30px_rgba(0,255,174,0.2)]">
+                        Send Project Brief
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
 
     <script>
         const apiKey = ""; 
@@ -152,7 +277,6 @@
         let isAdmin = false;
         let logoClickCount = 0;
 
-        // Initialize local storage for projects
         let defaultProjects = [
             { id: '1016254030', title: 'Street Fashion Edit', category: 'Editing' },
             { id: '913349639', title: 'Corporate Motion Reveal', category: 'Motion' }
@@ -161,12 +285,11 @@
         let projects = JSON.parse(localStorage.getItem('frameedit_projects')) || defaultProjects;
 
         const translations = {
-            en: { "nav-home": "Home", "nav-work": "Work", "nav-insights": "Insights", "nav-contact": "Contact", "btn-start": "Start Now", "hero-title": "Modern <br><span class='text-accent'>Visual Craft</span>", "hero-desc": "Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.", "btn-view-work": "View Projects", "work-title": "Selected Works", "work-desc": "A curated selection of our high-impact video projects and motion designs.", "filter-all": "All", "filter-motion": "Motion", "filter-editing": "Editing" },
-            fr: { "nav-home": "Accueil", "nav-work": "Travaux", "nav-insights": "Analyses", "nav-contact": "Contact", "btn-start": "Lancer", "hero-title": "Art <br><span class='text-accent'>Visuel Moderne</span>", "hero-desc": "Transformer vos rushs en histoires cinématographiques avec des animations haut de gamme.", "btn-view-work": "Voir Projets", "work-title": "Travaux Sélectionnés", "work-desc": "Une sélection de nos projets vidéo à fort impact.", "filter-all": "Tout", "filter-motion": "Motion", "filter-editing": "Montage" },
-            ar: { "nav-home": "الرئيسية", "nav-work": "أعمالنا", "nav-insights": "تحليلات", "nav-contact": "تواصل معنا", "btn-start": "ابدأ الآن", "hero-title": "صناعة <br><span class='text-accent'>بصرية عصرية</span>", "hero-desc": "تحويل اللقطات الخام إلى قصص سينمائية مع موشن جرافيك عالي المستوى.", "btn-view-work": "استعرض المشاريع", "work-title": "أعمال مختارة", "work-desc": "مجموعة مختارة من مشاريع الفيديو.", "filter-all": "الكل", "filter-motion": "موشن", "filter-editing": "مونتاج" }
+            en: { "nav-home": "Home", "nav-work": "Work", "nav-contact": "Contact", "btn-start": "Start Now", "hero-title": "Modern <br><span class='text-accent'>Visual Craft</span>", "hero-desc": "Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.", "btn-view-work": "View Projects", "work-title": "Selected Works", "work-desc": "A curated selection of our high-impact video projects and motion designs.", "filter-all": "All", "filter-motion": "Motion", "filter-editing": "Editing" },
+            fr: { "nav-home": "Accueil", "nav-work": "Travaux", "nav-contact": "Contact", "btn-start": "Lancer", "hero-title": "Art <br><span class='text-accent'>Visuel Moderne</span>", "hero-desc": "Transformer vos rushs en histoires cinématographiques avec des animations haut de gamme.", "btn-view-work": "Voir Projets", "work-title": "Travaux Sélectionnés", "work-desc": "Une sélection de nos projets vidéo à fort impact.", "filter-all": "Tout", "filter-motion": "Motion", "filter-editing": "Montage" },
+            ar: { "nav-home": "الرئيسية", "nav-work": "أعمالنا", "nav-contact": "تواصل معنا", "btn-start": "ابدأ الآن", "hero-title": "صناعة <br><span class='text-accent'>بصرية عصرية</span>", "hero-desc": "تحويل اللقطات الخام إلى قصص سينمائية مع موشن جرافيك عالي المستوى.", "btn-view-work": "استعرض المشاريع", "work-title": "أعمال مختارة", "work-desc": "مجموعة مختارة من مشاريع الفيديو.", "filter-all": "الكل", "filter-motion": "موشن", "filter-editing": "مونتاج" }
         };
 
-        // ADMIN FUNCTIONS
         function handleLogoClick() {
             logoClickCount++;
             if (logoClickCount === 5) {
@@ -192,13 +315,11 @@
             const title = document.getElementById('new-video-title').value;
             const id = document.getElementById('new-video-id').value;
             const category = document.getElementById('new-video-category').value;
-
             if(title && id) {
                 projects.unshift({ id, title, category });
                 localStorage.setItem('frameedit_projects', JSON.stringify(projects));
                 renderWork();
                 toggleAdminPanel();
-                // Clear inputs
                 document.getElementById('new-video-title').value = '';
                 document.getElementById('new-video-id').value = '';
             }
@@ -218,12 +339,10 @@
             renderWork();
         }
 
-        // CORE UI FUNCTIONS
         function renderWork(filter = 'all') {
             const grid = document.getElementById('portfolio-grid');
             grid.innerHTML = '';
             const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
-            
             filtered.forEach((p, index) => {
                 grid.innerHTML += `
                     <div class="bg-cardBg rounded-[32px] p-6 border border-borderColor group relative">
@@ -269,7 +388,6 @@
 
         window.onload = () => {
             renderWork();
-            // Optional: initCharts() logic here if you kept it
         };
     </script>
 </body>
