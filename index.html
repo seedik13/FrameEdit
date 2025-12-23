@@ -41,14 +41,40 @@
 
         .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 174, 0.1); }
         .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.2) 0%, transparent 70%); }
-        .vimeo-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; background: #000; }
+        
+        /* Video Container Styles */
+        .vimeo-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 24px; background: #000; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
         .vimeo-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
         
-        .ai-glow { box-shadow: 0 0 40px rgba(0, 255, 174, 0.1); border: 1px solid rgba(0, 255, 174, 0.15); }
+        /* Interactive Glows */
+        .ai-glow { box-shadow: 0 0 0px rgba(0, 255, 174, 0); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.5s ease; }
+        .ai-glow:hover { box-shadow: 0 0 40px rgba(0, 255, 174, 0.1); border-color: rgba(0, 255, 174, 0.3); transform: translateY(-5px); }
+        
         .image-overlay { background: linear-gradient(0deg, #050505 80%, transparent 100%); }
         
-        #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 9999; backdrop-filter: blur(15px); }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2300FFAE'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5em; }
+        /* Scroll Reveal Animation */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.23, 1, 0.32, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Admin Overlay Transition */
+        #admin-overlay { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            background: rgba(0,0,0,0.98); 
+            z-index: 9999; 
+            backdrop-filter: blur(20px);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .stagger-in > * { opacity: 0; transform: translateY(20px); }
+        .reveal.active .stagger-in > * { animation: slideUp 0.6s forwards; }
+        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased">
@@ -70,11 +96,11 @@
                     </div>
                     <p class="text-sm opacity-50 uppercase tracking-[0.2em]">Authorized Access Only</p>
                 </div>
-                <input type="password" id="admin-pass" placeholder="Enter Access Key" class="bg-black border border-white/5 p-4 rounded-2xl text-center w-full outline-none focus:border-accent/50 transition-all font-mono">
-                <button onclick="verifyAdmin()" class="bg-accent text-black font-bold px-12 py-4 rounded-2xl hover:brightness-110 transition-all uppercase text-xs tracking-widest w-full">Initialize Session</button>
+                <input type="password" id="admin-pass" placeholder="Enter Access Key" class="bg-black border border-white/5 p-4 rounded-2xl text-center w-full outline-none focus:border-accent/50 transition-all font-mono text-accent">
+                <button onclick="verifyAdmin()" class="bg-accent text-black font-bold px-12 py-4 rounded-2xl hover:brightness-110 transition-all uppercase text-xs tracking-widest w-full shadow-[0_10px_30px_-10px_rgba(0,255,174,0.5)]">Initialize Session</button>
             </div>
 
-            <div id="admin-content" class="hidden space-y-8 animate-in fade-in duration-500">
+            <div id="admin-content" class="hidden space-y-8">
                 <div class="p-6 border border-white/5 bg-black/40 rounded-3xl">
                     <h3 class="font-bold text-xs mb-6 uppercase text-accent tracking-widest">Upload Data</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -91,18 +117,18 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 glass z-50">
-        <div id="main-logo" class="font-display text-2xl font-bold tracking-tight cursor-pointer select-none" onclick="logoClick()">
-            FRAME<span class="text-accent">EDIT</span>
+        <div id="main-logo" class="font-display text-2xl font-bold tracking-tight cursor-pointer select-none group" onclick="logoClick()">
+            FRAME<span class="text-accent group-hover:italic transition-all">EDIT</span>
         </div>
         
         <div class="hidden md:flex items-center gap-8">
-            <a href="#view-home" class="hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Home</a>
-            <a href="#view-work" class="hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Work</a>
-            <a href="#view-process" class="hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Process</a>
-            <a href="#view-contact" class="hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Contact</a>
+            <a href="#view-home" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Home</a>
+            <a href="#view-work" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Work</a>
+            <a href="#view-process" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Process</a>
+            <a href="#view-contact" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Contact</a>
         </div>
 
-        <a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-wider hover:scale-105 transition-all">
+        <a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-wider hover:scale-105 transition-all shadow-[0_5px_15px_-5px_rgba(0,255,174,0.4)]">
             Get Started
         </a>
     </nav>
@@ -110,12 +136,12 @@
     <main>
         <!-- HERO -->
         <section id="view-home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 hero-gradient relative overflow-hidden">
-            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none">
-                <img src="images/hero-ai.jpg" alt="" class="w-full h-full object-cover">
+            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none scale-110">
+                <img src="images/hero-ai.jpg" alt="[Image of خلفية سينمائية]" class="w-full h-full object-cover">
             </div>
 
-            <div class="max-w-4xl z-10">
-                <div class="inline-block px-4 py-1 border border-accent/30 rounded-full text-accent text-[9px] uppercase tracking-[0.4em] mb-8 font-bold bg-accent/5 backdrop-blur-sm">Creative Intelligence</div>
+            <div class="max-w-4xl z-10 reveal active">
+                <div class="inline-block px-4 py-1 border border-accent/30 rounded-full text-accent text-[9px] uppercase tracking-[0.4em] mb-8 font-bold bg-accent/5 backdrop-blur-sm animate-pulse">Creative Intelligence</div>
                 <h1 class="font-display text-6xl md:text-9xl font-bold mb-8 uppercase tracking-tighter leading-[0.85]">Frame<br><span class="text-accent italic">Perfected.</span></h1>
                 <p class="text-white/50 text-base md:text-lg mb-12 max-w-xl mx-auto font-light leading-relaxed">High-end video production and cinematic editing tailored for the digital age.</p>
                 <div class="flex flex-wrap gap-4 justify-center">
@@ -127,22 +153,22 @@
 
         <!-- SERVICES -->
         <section class="px-6 lg:px-16 py-32 bg-black relative">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1440px] mx-auto">
-                <div class="relative group h-[500px] overflow-hidden rounded-[48px] ai-glow">
-                    <img src="images/edit-ai.jpg" alt="[Image of المونتاج]" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1440px] mx-auto stagger-reveal">
+                <div class="reveal relative group h-[500px] overflow-hidden rounded-[48px] ai-glow">
+                    <img src="images/edit-ai.jpg" alt="[Image of مونتاج فيديو]" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
                     <div class="absolute inset-0 image-overlay flex flex-col justify-end p-12">
                         <h3 class="text-2xl font-bold font-display uppercase mb-3">Post Production</h3>
                         <p class="text-[10px] opacity-50 uppercase tracking-[0.3em]">Precision editing workflow.</p>
                     </div>
                 </div>
-                <div class="relative group h-[500px] overflow-hidden rounded-[48px] ai-glow">
+                <div class="reveal relative group h-[500px] overflow-hidden rounded-[48px] ai-glow" style="transition-delay: 150ms;">
                     <img src="images/motion-ai.jpg" alt="[Image of موشن جرافيك]" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
                     <div class="absolute inset-0 image-overlay flex flex-col justify-end p-12">
                         <h3 class="text-2xl font-bold font-display uppercase mb-3 text-accent">Motion Design</h3>
                         <p class="text-[10px] opacity-50 uppercase tracking-[0.3em]">Fluid visual narratives.</p>
                     </div>
                 </div>
-                <div class="relative group h-[500px] overflow-hidden rounded-[48px] ai-glow">
+                <div class="reveal relative group h-[500px] overflow-hidden rounded-[48px] ai-glow" style="transition-delay: 300ms;">
                     <img src="images/color-ai.jpg" alt="" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
                     <div class="absolute inset-0 image-overlay flex flex-col justify-end p-12">
                         <h3 class="text-2xl font-bold font-display uppercase mb-3">Color Mastery</h3>
@@ -154,7 +180,7 @@
 
         <!-- PORTFOLIO -->
         <section id="view-work" class="px-6 lg:px-16 py-32 border-t border-white/5">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
+            <div class="reveal flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
                 <h2 class="font-display text-5xl md:text-7xl font-bold uppercase tracking-tighter">Selected<br><span class="text-accent italic">Works</span></h2>
                 <div class="text-[10px] opacity-40 uppercase tracking-[0.5em] mb-4">Crafting Excellence Since 2024</div>
             </div>
@@ -163,10 +189,10 @@
         </section>
 
         <!-- PROCESS -->
-        <section id="view-process" class="px-6 lg:px-16 py-32 border-t border-white/5 bg-cardBg/30">
+        <section id="view-process" class="px-6 lg:px-16 py-32 border-t border-white/5 bg-cardBg/30 overflow-hidden">
             <div class="max-w-5xl mx-auto">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                    <div class="space-y-12">
+                    <div class="space-y-12 reveal">
                         <div class="group">
                             <div class="flex items-center gap-6 mb-4">
                                 <span class="text-4xl font-display font-bold text-accent/20 group-hover:text-accent transition-colors">01</span>
@@ -182,8 +208,8 @@
                             <p class="opacity-40 text-sm leading-relaxed pl-14">Executing the vision with industry-standard tools and AI assistance.</p>
                         </div>
                     </div>
-                    <div class="rounded-[40px] overflow-hidden ai-glow aspect-square relative">
-                        <img src="images/process-1.jpg" alt="[Image of العمل]" class="w-full h-full object-cover">
+                    <div class="reveal rounded-[40px] overflow-hidden ai-glow aspect-square relative" style="transition-delay: 200ms;">
+                        <img src="images/process-1.jpg" alt="[Image of عملية العمل]" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
                     </div>
                 </div>
             </div>
@@ -195,17 +221,17 @@
                 <img src="images/contact-bg.jpg" alt="[Image of تواصل معنا]" class="w-full h-full object-cover">
             </div>
             
-            <div class="max-w-4xl mx-auto bg-cardBg/90 backdrop-blur-2xl border border-white/5 p-12 md:p-20 rounded-[56px] z-10 relative">
+            <div class="reveal max-w-4xl mx-auto bg-cardBg/90 backdrop-blur-2xl border border-white/5 p-12 md:p-20 rounded-[56px] z-10 relative">
                 <div class="text-center mb-16">
                     <h2 class="font-display text-4xl md:text-6xl font-bold mb-4 uppercase italic">Let's Talk</h2>
                     <p class="text-[10px] opacity-40 uppercase tracking-[0.4em]">Initialize Connection</p>
                 </div>
                 
                 <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <input type="text" id="f-name" placeholder="Full Name" required class="w-full bg-black/50 border border-white/5 p-5 rounded-2xl focus:border-accent/40 outline-none transition-all placeholder:text-white/20">
-                    <input type="text" id="f-phone" placeholder="WhatsApp / Phone" required class="w-full bg-black/50 border border-white/5 p-5 rounded-2xl focus:border-accent/40 outline-none transition-all placeholder:text-white/20">
+                    <input type="text" id="f-name" placeholder="Full Name" required class="w-full bg-black/50 border border-white/5 p-5 rounded-2xl focus:border-accent/40 outline-none transition-all placeholder:text-white/20 text-white">
+                    <input type="text" id="f-phone" placeholder="WhatsApp / Phone" required class="w-full bg-black/50 border border-white/5 p-5 rounded-2xl focus:border-accent/40 outline-none transition-all placeholder:text-white/20 text-white">
                     <div class="md:col-span-2">
-                        <button type="submit" class="w-full bg-accent text-black font-bold py-6 rounded-2xl uppercase tracking-[0.3em] text-xs hover:brightness-110 transition-all shadow-xl">
+                        <button type="submit" class="w-full bg-accent text-black font-bold py-6 rounded-2xl uppercase tracking-[0.3em] text-xs hover:brightness-110 transition-all shadow-[0_15px_40px_-10px_rgba(0,255,174,0.4)]">
                             Send Request
                         </button>
                     </div>
@@ -227,17 +253,30 @@
 
     <script>
         const phone = "213668591373";
-        // Encoded key for 'seddikbenkada'
         const _k = "c2VkZGlrYmVua2FkYQ=="; 
         
         let projects = [
             { id: '1016254030', title: 'Urban Narrative' },
-            { id: '913349639', title: 'Electronic Soul' }
+            { id: '913349639', title: 'Electronic Soul' },
+            { id: '911953257', title: 'Cyber Pulse' }
         ];
+
+        // Reveal Animations Logic
+        const observerOptions = { threshold: 0.1 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
         function logoClick() {
             window.clickCount = (window.clickCount || 0) + 1;
-            if(window.clickCount >= 5) { document.getElementById('admin-overlay').style.display = 'flex'; window.clickCount = 0; }
+            if(window.clickCount >= 5) { 
+                document.getElementById('admin-overlay').style.display = 'flex'; 
+                window.clickCount = 0; 
+            }
             setTimeout(() => { window.clickCount = 0; }, 2000);
         }
 
@@ -251,8 +290,12 @@
                 renderAdminList();
             } else {
                 const btn = event.target;
+                btn.style.animation = 'shake 0.4s';
                 btn.classList.add('bg-red-500');
-                setTimeout(() => btn.classList.remove('bg-red-500'), 500);
+                setTimeout(() => {
+                    btn.style.animation = '';
+                    btn.classList.remove('bg-red-500');
+                }, 500);
             }
         }
 
@@ -266,18 +309,30 @@
 
         function addNewProject() {
             const t = document.getElementById('new-title').value, i = document.getElementById('new-vimeo').value;
-            if(t && i) { projects.unshift({ id: i, title: t }); renderAdminList(); document.getElementById('new-title').value = ''; document.getElementById('new-vimeo').value = ''; }
+            if(t && i) { 
+                projects.unshift({ id: i, title: t }); 
+                renderAdminList(); 
+                document.getElementById('new-title').value = ''; 
+                document.getElementById('new-vimeo').value = ''; 
+            }
         }
 
-        function saveAdminChanges() { renderWork(); closeAdmin(); }
+        function saveAdminChanges() { 
+            renderWork(); 
+            closeAdmin(); 
+            // Re-observe new elements
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+            }, 100);
+        }
 
         function renderWork() {
             const grid = document.getElementById('portfolio-grid');
             grid.innerHTML = '';
             projects.forEach(p => {
                 grid.innerHTML += `
-                    <div class="bg-cardBg rounded-[48px] p-8 border border-white/5 hover:border-accent/20 transition-all group ai-glow">
-                        <div class="vimeo-wrapper mb-8"><iframe src="https://player.vimeo.com/video/${p.id}?color=00FFAE&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
+                    <div class="reveal bg-cardBg rounded-[48px] p-8 border border-white/5 transition-all group ai-glow">
+                        <div class="vimeo-wrapper mb-8 group-hover:scale-[1.02]"><iframe src="https://player.vimeo.com/video/${p.id}?color=00FFAE&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
                         <h3 class="text-3xl font-bold font-display uppercase group-hover:text-accent transition-colors italic tracking-tighter">${p.title}</h3>
                     </div>
                 `;
@@ -286,7 +341,7 @@
 
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const msg = `*New Project Inquiry*:%0A- Name: ${document.getElementById('f-name').value}%0A- Status: Ready to start`;
+            const msg = `*New Project Inquiry*:%0A- Name: ${document.getElementById('f-name').value}%0A- Status: Initializing connection...`;
             window.open(`https://wa.me/${phone}?text=${msg}`);
         });
 
