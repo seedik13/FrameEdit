@@ -1,147 +1,152 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" id="html-tag" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FrameEdit - Professional Video Editing & Motion Graphics Studio">
-    <title>FrameEdit | Professional Video Studio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FrameEdit | Professional Video Studio</title>
 
-    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
-    <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        bgDark: '#050505',
-                        cardBg: '#0F0F0F',
-                        accent: '#00FFAE',
-                        textMuted: '#A0A0A0',
-                        borderColor: 'rgba(0,255,174,0.15)',
-                    },
-                    fontFamily: {
-                        display: ['Clash Display', 'sans-serif'],
-                        body: ['Inter', 'IBM Plex Sans Arabic', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+bgDark:'#050505',
+cardBg:'#0F0F0F',
+accent:'#00FFAE',
+textMuted:'#A0A0A0',
+borderColor:'rgba(0,255,174,0.15)'
+},
+fontFamily:{
+display:['Clash Display','sans-serif'],
+body:['Inter','IBM Plex Sans Arabic','sans-serif']
+}
+}
+}
+}
+</script>
 </head>
 
 <body class="bg-bgDark text-white overflow-x-hidden">
 
+<!-- NAV -->
 <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 bg-black/70 backdrop-blur z-50">
-    <div class="font-display text-2xl font-bold">
-        FRAME<span class="text-accent">EDIT</span>
-    </div>
-    <a href="#view-contact"
-       class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm">
-        Start Now
-    </a>
+<div class="font-display text-2xl font-bold">
+FRAME<span class="text-accent">EDIT</span>
+</div>
+<a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm">
+Start Now
+</a>
 </nav>
 
 <main>
 
 <!-- HERO -->
 <section id="view-home" class="min-h-screen flex items-center justify-center text-center px-6">
-    <div>
-        <h1 class="font-display text-6xl md:text-8xl font-bold mb-6">
-            Modern <span class="text-accent">Visual Craft</span>
-        </h1>
-        <p class="text-textMuted max-w-xl mx-auto">
-            Professional Video Editing & Motion Graphics
-        </p>
-    </div>
+<div>
+<h1 class="font-display text-6xl md:text-8xl font-bold mb-6">
+Modern <span class="text-accent">Visual Craft</span>
+</h1>
+<p class="text-textMuted max-w-xl mx-auto">
+Professional Video Editing & Motion Graphics
+</p>
+</div>
 </section>
 
-<!-- WORK -->
+<!-- PORTFOLIO (كيما كان) -->
 <section id="view-work" class="px-6 lg:px-16 py-32 max-w-[1400px] mx-auto">
-    <h2 class="font-display text-5xl font-bold mb-12 text-center">
-        Selected Works
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div class="bg-cardBg p-6 rounded-3xl border border-borderColor">
-            <iframe class="w-full aspect-video rounded-xl"
-                src="https://player.vimeo.com/video/1016254030" allowfullscreen></iframe>
-        </div>
-        <div class="bg-cardBg p-6 rounded-3xl border border-borderColor">
-            <iframe class="w-full aspect-video rounded-xl"
-                src="https://player.vimeo.com/video/913349639" allowfullscreen></iframe>
-        </div>
-    </div>
+<h2 class="font-display text-5xl font-bold mb-12 text-center">
+Selected Works
+</h2>
+
+<div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 gap-12">
+<div class="bg-cardBg p-6 rounded-3xl border border-borderColor">
+<iframe class="w-full aspect-video rounded-xl"
+src="https://player.vimeo.com/video/1016254030"
+allowfullscreen></iframe>
+</div>
+
+<div class="bg-cardBg p-6 rounded-3xl border border-borderColor">
+<iframe class="w-full aspect-video rounded-xl"
+src="https://player.vimeo.com/video/913349639"
+allowfullscreen></iframe>
+</div>
+</div>
 </section>
 
-<!-- CONTACT -->
+<!-- CONTACT (هذا الجديد فقط) -->
 <section id="view-contact" class="px-6 lg:px-16 py-32 max-w-4xl mx-auto">
-    <h2 class="font-display text-5xl font-bold mb-12 text-center">
-        Start Your Project
-    </h2>
+<h2 class="font-display text-5xl font-bold mb-12 text-center">
+Start Your Project
+</h2>
 
-    <form id="whatsappForm"
-          class="bg-cardBg p-10 rounded-3xl border border-borderColor space-y-6">
+<form id="whatsappForm"
+class="bg-cardBg p-10 rounded-3xl border border-borderColor space-y-6">
 
-        <input id="name" required placeholder="Full Name"
-               class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<input id="name" required placeholder="Full Name"
+class="w-full bg-black p-4 rounded-xl border border-borderColor">
 
-        <input id="email" required type="email" placeholder="Email"
-               class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<input id="email" required type="email" placeholder="Email Address"
+class="w-full bg-black p-4 rounded-xl border border-borderColor">
 
-        <input id="phone" required placeholder="WhatsApp Number"
-               class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<input id="phone" required placeholder="WhatsApp Number"
+class="w-full bg-black p-4 rounded-xl border border-borderColor">
 
-        <select id="projectType" class="w-full bg-black p-4 rounded-xl border border-borderColor">
-            <option>Video Editing</option>
-            <option>Motion Graphics</option>
-            <option>Reels / Shorts</option>
-            <option>Advertising</option>
-        </select>
+<select id="projectType" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<option>Video Editing</option>
+<option>Motion Graphics</option>
+<option>Reels / Shorts</option>
+<option>Advertising (Ads)</option>
+</select>
 
-        <select id="orientation" class="w-full bg-black p-4 rounded-xl border border-borderColor">
-            <option>Vertical</option>
-            <option>Horizontal</option>
-        </select>
+<select id="orientation" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<option>Vertical</option>
+<option>Horizontal</option>
+</select>
 
-        <select id="duration" class="w-full bg-black p-4 rounded-xl border border-borderColor">
-            <option>&lt; 30s</option>
-            <option>30 – 60s</option>
-            <option>1 – 3 min</option>
-            <option>+ 3 min</option>
-        </select>
+<select id="duration" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<option>&lt; 30s</option>
+<option>30 – 60s</option>
+<option>1 – 3 min</option>
+<option>+ 3 min</option>
+</select>
 
-        <select id="deadline" class="w-full bg-black p-4 rounded-xl border border-borderColor">
-            <option>Urgent</option>
-            <option>3–5 days</option>
-            <option>1 week</option>
-            <option>Flexible</option>
-        </select>
+<select id="deadline" class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<option>Urgent</option>
+<option>3–5 days</option>
+<option>1 week</option>
+<option>Flexible</option>
+</select>
 
-        <input id="colors" placeholder="Preferred colors"
-               class="w-full bg-black p-4 rounded-xl border border-borderColor">
+<input id="colors" placeholder="Preferred colors"
+class="w-full bg-black p-4 rounded-xl border border-borderColor">
 
-        <textarea id="style" rows="4" placeholder="Style / references"
-                  class="w-full bg-black p-4 rounded-xl border border-borderColor"></textarea>
+<textarea id="style" rows="4" placeholder="Style / references"
+class="w-full bg-black p-4 rounded-xl border border-borderColor"></textarea>
 
-        <textarea id="notes" rows="3" placeholder="Additional notes"
-                  class="w-full bg-black p-4 rounded-xl border border-borderColor"></textarea>
+<textarea id="notes" rows="3" placeholder="Additional notes"
+class="w-full bg-black p-4 rounded-xl border border-borderColor"></textarea>
 
-        <button type="submit"
-                class="w-full bg-accent text-black font-bold py-4 rounded-xl">
-            Send via WhatsApp
-        </button>
-    </form>
+<button type="submit"
+class="w-full bg-accent text-black font-bold py-4 rounded-xl">
+Send via WhatsApp
+</button>
+
+</form>
 </section>
 
 </main>
 
+<!-- WHATSAPP SCRIPT -->
 <script>
-document.getElementById("whatsappForm").addEventListener("submit", function(e) {
-    e.preventDefault();
+document.getElementById("whatsappForm").addEventListener("submit",function(e){
+e.preventDefault();
 
-    const msg = `
+const msg = `
 New Video Project Request
 
 Name: ${name.value}
@@ -156,13 +161,12 @@ Deadline: ${deadline.value}
 Colors: ${colors.value}
 Style: ${style.value}
 Notes: ${notes.value}
-    `;
+`;
 
-    const phoneNumber = "213668591373";
-    window.open(
-        "https://wa.me/" + phoneNumber + "?text=" + encodeURIComponent(msg),
-        "_blank"
-    );
+window.open(
+"https://wa.me/213668591373?text="+encodeURIComponent(msg),
+"_blank"
+);
 });
 </script>
 
