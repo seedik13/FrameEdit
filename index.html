@@ -10,8 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    
     <script>
         tailwind.config = {
             theme: {
@@ -37,316 +36,112 @@
     <style>
         body { font-family: 'Inter', 'IBM Plex Sans Arabic', sans-serif; background-color: #050505; color: white; }
         [dir="rtl"] body { font-family: 'IBM Plex Sans Arabic', sans-serif; }
-        
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #050505; }
         ::-webkit-scrollbar-thumb { background: #00FFAE; border-radius: 10px; }
-
         .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 174, 0.1); }
         .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.15) 0%, transparent 70%); }
-        .neon-border { border: 1px solid #00FFAE; box-shadow: 0 0 10px rgba(0, 255, 174, 0.3); }
-        
-        .vimeo-wrapper {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            overflow: hidden;
-            border-radius: 16px;
-            background: #000;
-        }
-        .vimeo-wrapper iframe {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        }
-
-        /* Custom styling for form inputs */
-        input::placeholder, textarea::placeholder { color: #555; }
-        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2300FFAE'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1rem; }
-        [dir="rtl"] select { background-position: left 1rem center; }
+        .vimeo-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; background: #000; }
+        .vimeo-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased selection:bg-accent selection:text-black">
 
-    <div id="admin-panel" class="fixed inset-0 z-[100] bg-black/95 hidden items-center justify-center p-6">
-        <div class="bg-cardBg border border-accent/30 p-8 rounded-3xl max-w-md w-full relative">
-            <button onclick="toggleAdminPanel()" class="absolute top-4 right-4 text-textMuted hover:text-white">✕</button>
-            <h2 class="font-display text-2xl font-bold mb-6 text-accent">Admin Dashboard</h2>
-            <div class="space-y-4">
-                <input type="text" id="new-video-title" placeholder="Project Title" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent text-white">
-                <input type="text" id="new-video-id" placeholder="Vimeo Video ID" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent text-white">
-                <select id="new-video-category" class="w-full bg-black border border-borderColor p-3 rounded-xl outline-none focus:border-accent text-white">
-                    <option value="Editing">Editing</option>
-                    <option value="Motion">Motion</option>
-                </select>
-                <button onclick="addProject()" class="w-full bg-accent text-black font-bold py-3 rounded-xl hover:brightness-110">Add Project</button>
-                <button onclick="logoutAdmin()" class="w-full border border-red-500/50 text-red-500 py-2 rounded-xl text-sm mt-4">Logout</button>
-            </div>
-        </div>
-    </div>
-
     <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 glass z-50">
-        <div class="font-display text-2xl font-bold tracking-tight cursor-pointer" onclick="handleLogoClick()">
+        <div class="font-display text-2xl font-bold tracking-tight cursor-pointer">
             FRAME<span class="text-accent">EDIT</span>
         </div>
-        
-        <div class="hidden md:flex items-center gap-8">
-            <a href="#view-home" data-i18n="nav-home" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Home</a>
-            <a href="#view-work" data-i18n="nav-work" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Work</a>
-            <a href="#view-contact" data-i18n="nav-contact" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Contact</a>
-            
-            <select onchange="changeLanguage(this.value)" class="bg-transparent border border-borderColor text-accent text-xs p-1 rounded outline-none cursor-pointer font-bold">
-                <option value="en" class="bg-bgDark">EN</option>
-                <option value="fr" class="bg-bgDark">FR</option>
-                <option value="ar" class="bg-bgDark">AR</option>
-            </select>
-        </div>
-
-        <a href="#view-contact" data-i18n="btn-start" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,174,0.3)]">
+        <a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all shadow-[0_0_15px_rgba(0,255,174,0.3)]">
             Start Now
         </a>
     </nav>
 
     <main>
         <section id="view-home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 hero-gradient relative">
-            <div class="max-w-4xl z-10">
-                <div class="inline-block px-4 py-1 border border-accent/30 rounded-full text-accent text-[10px] uppercase tracking-[0.3em] mb-6 font-bold bg-accent/5">
-                    Creative Video Agency
-                </div>
-                <h1 id="hero-title" class="font-display text-5xl md:text-8xl font-bold mb-8 leading-tight uppercase tracking-tighter">
-                    Modern <br><span class="text-accent">Visual Craft</span>
-                </h1>
-                <p id="hero-desc" class="text-textMuted text-lg md:text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-                    Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.
-                </p>
-                <div class="flex flex-wrap gap-6 justify-center">
-                    <a href="#view-work" data-i18n="btn-view-work" class="neon-border bg-transparent text-accent px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-accent hover:text-black transition-all">
-                        View Projects
-                    </a>
-                    <a href="#view-contact" data-i18n="nav-contact" class="bg-white/5 border border-white/10 text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white/10 transition-all">
-                        Get In Touch
-                    </a>
-                </div>
-            </div>
+            <h1 class="font-display text-5xl md:text-8xl font-bold mb-8 uppercase tracking-tighter">
+                Modern <br><span class="text-accent">Visual Craft</span>
+            </h1>
         </section>
 
-        <section id="view-work" class="px-6 lg:px-16 py-32 max-w-[1440px] mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                <div class="max-w-xl">
-                    <h2 data-i18n="work-title" class="font-display text-4xl md:text-6xl font-bold mb-6">Selected Works</h2>
-                    <p data-i18n="work-desc" class="text-textMuted text-lg">A curated selection of our high-impact video projects and motion designs.</p>
-                </div>
-                <div class="flex bg-cardBg p-1 rounded-xl border border-borderColor">
-                    <button onclick="filterProjects('all')" data-i18n="filter-all" class="px-6 py-2 rounded-lg bg-accent text-black font-bold text-xs uppercase tracking-widest">All</button>
-                    <button onclick="filterProjects('Motion')" data-i18n="filter-motion" class="px-6 py-2 rounded-lg text-textMuted font-bold text-xs uppercase tracking-widest hover:text-white transition-all">Motion</button>
-                    <button onclick="filterProjects('Editing')" data-i18n="filter-editing" class="px-6 py-2 rounded-lg text-textMuted font-bold text-xs uppercase tracking-widest hover:text-white transition-all">Editing</button>
-                </div>
-            </div>
-            <div id="portfolio-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16"></div>
-        </section>
-
-        <section id="view-contact" class="px-6 lg:px-16 py-32 max-w-[1100px] mx-auto">
-            <div class="bg-cardBg border border-borderColor/30 rounded-[40px] p-8 md:p-16 relative overflow-hidden">
-                <div class="absolute -top-24 -right-24 w-64 h-64 bg-accent/5 blur-[100px] rounded-full"></div>
+        <section id="view-contact" class="px-6 lg:px-16 py-32 max-w-4xl mx-auto">
+            <div class="bg-cardBg border border-borderColor p-8 md:p-12 rounded-[40px] shadow-2xl">
+                <h2 class="font-display text-4xl font-bold mb-10 text-center uppercase tracking-tighter">Start Your <span class="text-accent">Project</span></h2>
                 
-                <div class="relative z-10">
-                    <div class="mb-12">
-                        <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 uppercase tracking-tight">Let's Build Your <span class="text-accent">Vision</span></h2>
-                        <p class="text-textMuted text-lg">Tell us about your project and we’ll get back to you with a custom plan.</p>
-                    </div>
+                <form id="whatsapp-form" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <input type="text" id="name" placeholder="Full Name" required class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
+                    <input type="email" id="email" placeholder="Email Address" required class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
+                    <input type="tel" id="phone" placeholder="Phone Number" required class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
+                    
+                    <select id="project-type" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted">
+                        <option value="" disabled selected>Project Type</option>
+                        <option value="Video Editing">Video Editing</option>
+                        <option value="Motion Graphics">Motion Graphics</option>
+                    </select>
 
-                    <form id="contact-form" class="space-y-10">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Full Name</label>
-                                <input type="text" placeholder="e.g. Sidali Ben" class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-white" required>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Email Address</label>
-                                <input type="email" placeholder="name@company.com" class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-white" required>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">WhatsApp / Phone</label>
-                                <input type="tel" placeholder="+213 ---" class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                            </div>
-                        </div>
+                    <select id="orientation" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted">
+                        <option value="" disabled selected>Orientation</option>
+                        <option value="Vertical (9:16)">Vertical (Reels/TikTok)</option>
+                        <option value="Horizontal (16:9)">Horizontal (YouTube/TV)</option>
+                    </select>
 
-                        <hr class="border-borderColor/10">
+                    <input type="text" id="purpose" placeholder="Video Purpose (e.g. Ads, Reel)" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
+                    <input type="text" id="duration" placeholder="Estimated Duration (e.g. 60s)" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
+                    <input type="text" id="deadline" placeholder="Deadline (e.g. Next Week)" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
+                    
+                    <input type="text" id="style" placeholder="Style Description" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all md:col-span-2 text-white">
+                    <input type="text" id="colors" placeholder="Color Preference" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all md:col-span-2 text-white">
+                    
+                    <textarea id="notes" placeholder="Additional Notes" rows="4" class="bg-black/50 border border-borderColor p-4 rounded-2xl outline-none focus:border-accent transition-all md:col-span-2 text-white"></textarea>
 
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                            <div class="space-y-3">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Project Type</label>
-                                <select class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted cursor-pointer">
-                                    <option>Video Editing</option>
-                                    <option>Motion Graphics</option>
-                                    <option>Reels / Short-form</option>
-                                    <option>Advertising (Ads)</option>
-                                </select>
-                            </div>
-                            <div class="space-y-3">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Orientation</label>
-                                <select class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted cursor-pointer">
-                                    <option>Vertical (9:16)</option>
-                                    <option>Horizontal (16:9)</option>
-                                </select>
-                            </div>
-                            <div class="space-y-3">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Duration</label>
-                                <select class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted cursor-pointer">
-                                    <option>< 30 seconds</option>
-                                    <option>30–60 seconds</option>
-                                    <option>1–3 minutes</option>
-                                    <option>+3 minutes</option>
-                                </select>
-                            </div>
-                            <div class="space-y-3">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Deadline</label>
-                                <select class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-textMuted cursor-pointer">
-                                    <option>Flexible</option>
-                                    <option>This week</option>
-                                    <option>Urgent</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Style & Direction</label>
-                                <textarea rows="4" placeholder="Describe your vision..." class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-white resize-none"></textarea>
-                            </div>
-                            <div class="space-y-6">
-                                <div class="space-y-2">
-                                    <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Color Preference</label>
-                                    <input type="text" placeholder="e.g. Neon, Minimal, Dark" class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="text-xs font-bold uppercase tracking-widest text-accent/80 ml-1">Reference Links</label>
-                                    <input type="url" placeholder="Drive or YouTube link" class="w-full bg-black/50 border border-borderColor/20 p-4 rounded-2xl outline-none focus:border-accent transition-all text-white">
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="w-full md:w-auto bg-accent text-black px-12 py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-sm hover:scale-[1.02] active:scale-[0.98] transition-all shadow-[0_0_30px_rgba(0,255,174,0.2)] flex items-center justify-center gap-3 group">
-                            Send Project Details
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </button>
-                    </form>
-                </div>
+                    <button type="submit" class="md:col-span-2 bg-accent text-black font-bold py-5 rounded-2xl hover:scale-[1.02] transition-all shadow-[0_0_20px_rgba(0,255,174,0.2)] uppercase tracking-widest">
+                        Send to WhatsApp
+                    </button>
+                </form>
             </div>
         </section>
     </main>
 
     <script>
-        let isAdmin = false;
-        let logoClickCount = 0;
+        const phoneNumber = "213668591373";
 
-        let defaultProjects = [
-            { id: '1016254030', title: 'Street Fashion Edit', category: 'Editing' },
-            { id: '913349639', title: 'Corporate Motion Reveal', category: 'Motion' }
-        ];
-        
-        let projects = JSON.parse(localStorage.getItem('frameedit_projects')) || defaultProjects;
+        document.getElementById('whatsapp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
 
-        const translations = {
-            en: { "nav-home": "Home", "nav-work": "Work", "nav-contact": "Contact", "btn-start": "Start Now", "hero-title": "Modern <br><span class='text-accent'>Visual Craft</span>", "hero-desc": "Transforming raw footage into cinematic stories with high-end motion graphics and professional post-production.", "btn-view-work": "View Projects", "work-title": "Selected Works", "work-desc": "A curated selection of our high-impact video projects and motion designs.", "filter-all": "All", "filter-motion": "Motion", "filter-editing": "Editing" },
-            fr: { "nav-home": "Accueil", "nav-work": "Travaux", "nav-contact": "Contact", "btn-start": "Lancer", "hero-title": "Art <br><span class='text-accent'>Visuel Moderne</span>", "hero-desc": "Transformer vos rushs en histoires cinématographiques avec des animations haut de gamme.", "btn-view-work": "Voir Projets", "work-title": "Travaux Sélectionnés", "work-desc": "Une sélection de nos projets vidéo à fort impact.", "filter-all": "Tout", "filter-motion": "Motion", "filter-editing": "Montage" },
-            ar: { "nav-home": "الرئيسية", "nav-work": "أعمالنا", "nav-contact": "تواصل معنا", "btn-start": "ابدأ الآن", "hero-title": "صناعة <br><span class='text-accent'>بصرية عصرية</span>", "hero-desc": "تحويل اللقطات الخام إلى قصص سينمائية مع موشن جرافيك عالي المستوى.", "btn-view-work": "استعرض المشاريع", "work-title": "أعمال مختارة", "work-desc": "مجموعة مختارة من مشاريع الفيديو.", "filter-all": "الكل", "filter-motion": "موشن", "filter-editing": "مونتاج" }
-        };
+            // Collect all fields
+            const data = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                type: document.getElementById('project-type').value,
+                orientation: document.getElementById('orientation').value,
+                purpose: document.getElementById('purpose').value,
+                duration: document.getElementById('duration').value,
+                deadline: document.getElementById('deadline').value,
+                style: document.getElementById('style').value,
+                colors: document.getElementById('colors').value,
+                notes: document.getElementById('notes').value
+            };
 
-        function handleLogoClick() {
-            logoClickCount++;
-            if (logoClickCount === 5) {
-                const password = prompt("Admin Password Required:");
-                if (password === "seddikbenkada") {
-                    isAdmin = true;
-                    toggleAdminPanel();
-                    renderWork();
-                } else { alert("Wrong Password"); }
-                logoClickCount = 0;
-            }
-        }
+            // Format the WhatsApp message
+            let message = `*Hello FrameEdit, I want to start a new video project:* \n\n`;
+            message += `👤 *Name:* ${data.name}\n`;
+            message += `📧 *Email:* ${data.email}\n`;
+            message += `📞 *Phone:* ${data.phone}\n`;
+            message += `🎬 *Project Type:* ${data.type || 'N/A'}\n`;
+            message += `📱 *Orientation:* ${data.orientation || 'N/A'}\n`;
+            message += `🎯 *Purpose:* ${data.purpose}\n`;
+            message += `⏳ *Duration:* ${data.duration}\n`;
+            message += `📅 *Deadline:* ${data.deadline}\n`;
+            message += `🎨 *Style:* ${data.style}\n`;
+            message += `🌈 *Colors:* ${data.colors}\n`;
+            message += `📝 *Notes:* ${data.notes || 'None'}`;
 
-        function toggleAdminPanel() {
-            const panel = document.getElementById('admin-panel');
-            panel.classList.toggle('hidden');
-            panel.classList.toggle('flex');
-        }
-
-        function addProject() {
-            const title = document.getElementById('new-video-title').value;
-            const id = document.getElementById('new-video-id').value;
-            const category = document.getElementById('new-video-category').value;
-            if(title && id) {
-                projects.unshift({ id, title, category });
-                localStorage.setItem('frameedit_projects', JSON.stringify(projects));
-                renderWork();
-                toggleAdminPanel();
-            }
-        }
-
-        function deleteProject(index) {
-            if(confirm("Delete this project?")) {
-                projects.splice(index, 1);
-                localStorage.setItem('frameedit_projects', JSON.stringify(projects));
-                renderWork();
-            }
-        }
-
-        function logoutAdmin() {
-            isAdmin = false;
-            toggleAdminPanel();
-            renderWork();
-        }
-
-        function renderWork(filter = 'all') {
-            const grid = document.getElementById('portfolio-grid');
-            grid.innerHTML = '';
-            const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+            // URL Encoding and Redirect
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
             
-            filtered.forEach((p, index) => {
-                grid.innerHTML += `
-                    <div class="bg-cardBg rounded-[32px] p-6 border border-borderColor group relative">
-                        ${isAdmin ? `<button onclick="deleteProject(${index})" class="absolute top-4 right-4 z-20 bg-red-500 text-white p-2 rounded-full text-xs">Delete</button>` : ''}
-                        <div class="vimeo-wrapper mb-8 shadow-2xl">
-                            <iframe src="https://player.vimeo.com/video/${p.id}" frameborder="0" allow="autoplay; fullscreen" title="${p.title}"></iframe>
-                        </div>
-                        <div class="flex justify-between items-end px-2">
-                            <div>
-                                <span class="text-accent text-[10px] font-bold uppercase tracking-widest mb-2 block">${p.category}</span>
-                                <h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function changeLanguage(lang) {
-            const html = document.getElementById('html-tag');
-            html.lang = lang;
-            html.dir = (lang === 'ar') ? 'rtl' : 'ltr';
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                el.innerHTML = translations[lang][key];
-            });
-            document.getElementById('hero-title').innerHTML = translations[lang]['hero-title'];
-            document.getElementById('hero-desc').innerText = translations[lang]['hero-desc'];
-        }
-
-        function filterProjects(cat) { 
-            renderWork(cat);
-            const buttons = document.querySelectorAll('#view-work button');
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-accent', 'text-black');
-                btn.classList.add('text-textMuted');
-                if(btn.innerText.toLowerCase() === cat.toLowerCase() || (cat === 'all' && btn.getAttribute('data-i18n') === 'filter-all')) {
-                    btn.classList.add('bg-accent', 'text-black');
-                    btn.classList.remove('text-textMuted');
-                }
-            });
-        }
-
-        window.onload = () => { renderWork(); };
+            window.open(whatsappUrl, '_blank');
+        });
     </script>
 </body>
 </html>
