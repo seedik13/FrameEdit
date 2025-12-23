@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FrameEdit - Professional Video Studio">
-    <title>FrameEdit | Seddik Studio</title>
+    <meta name="description" content="FrameEdit - Professional Video Editing & Motion Graphics Studio">
+    <title>FrameEdit | Professional Video Studio</title>
     
     <!-- Fonts -->
     <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,600,700&display=swap" rel="stylesheet">
@@ -40,199 +40,233 @@
         ::-webkit-scrollbar-thumb { background: #00FFAE; border-radius: 10px; }
 
         .glass { background: rgba(15, 15, 15, 0.8); backdrop-filter: blur(15px); border-bottom: 1px solid rgba(0, 255, 174, 0.1); }
-        .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.2) 0%, transparent 70%); }
-        
-        /* Video Container Styles */
-        .vimeo-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 24px; background: #000; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+        .hero-gradient { background: radial-gradient(circle at center, rgba(0, 255, 174, 0.15) 0%, transparent 70%); }
+        .vimeo-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 16px; background: #000; }
         .vimeo-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        #admin-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 9999; backdrop-filter: blur(10px); }
         
-        /* Interactive Glows */
-        .ai-glow { box-shadow: 0 0 0px rgba(0, 255, 174, 0); border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.5s ease; }
-        .ai-glow:hover { box-shadow: 0 0 40px rgba(0, 255, 174, 0.1); border-color: rgba(0, 255, 174, 0.3); transform: translateY(-5px); }
+        select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2300FFAE'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; background-size: 1.5em; }
         
-        .image-overlay { background: linear-gradient(0deg, #050505 80%, transparent 100%); }
-        
-        /* Scroll Reveal Animation */
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.23, 1, 0.32, 1); }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* Admin Overlay Transition */
-        #admin-overlay { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(0,0,0,0.98); 
-            z-index: 9999; 
-            backdrop-filter: blur(20px);
-            animation: fadeIn 0.4s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(1.05); }
-            to { opacity: 1; transform: scale(1); }
-        }
-
-        .stagger-in > * { opacity: 0; transform: translateY(20px); }
-        .reveal.active .stagger-in > * { animation: slideUp 0.6s forwards; }
-        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+        .process-step::before { content: ''; position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: rgba(0, 255, 174, 0.2); z-index: -1; }
     </style>
 </head>
 <body class="overflow-x-hidden antialiased">
 
     <!-- SECRET ADMIN OVERLAY -->
     <div id="admin-overlay" class="flex items-center justify-center p-6">
-        <div class="bg-cardBg border border-accent/20 p-8 rounded-[32px] w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div class="flex justify-between items-center mb-8 border-b border-white/5 pb-4">
-                <h2 class="text-xl font-display font-bold text-accent uppercase tracking-widest">Secure Terminal</h2>
-                <button onclick="closeAdmin()" class="text-white/40 hover:text-red-500 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
+        <div class="bg-cardBg border border-accent/30 p-8 rounded-3xl w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-[0_0_50px_rgba(0,255,174,0.1)]">
+            <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-4">
+                <h2 class="text-2xl font-display font-bold text-accent uppercase">Secret Admin Panel</h2>
+                <button onclick="closeAdmin()" class="text-white hover:text-red-500 font-bold">CLOSE [X]</button>
             </div>
             
-            <div id="admin-auth" class="space-y-6 py-12 text-center">
-                <div class="mb-4">
-                    <div class="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-accent/20">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#00FFAE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                    </div>
-                    <p class="text-sm opacity-50 uppercase tracking-[0.2em]">Authorized Access Only</p>
-                </div>
-                <input type="password" id="admin-pass" placeholder="Enter Access Key" class="bg-black border border-white/5 p-4 rounded-2xl text-center w-full outline-none focus:border-accent/50 transition-all font-mono text-accent">
-                <button onclick="verifyAdmin()" class="bg-accent text-black font-bold px-12 py-4 rounded-2xl hover:brightness-110 transition-all uppercase text-xs tracking-widest w-full shadow-[0_10px_30px_-10px_rgba(0,255,174,0.5)]">Initialize Session</button>
+            <div id="admin-auth" class="space-y-4 py-10 text-center">
+                <p class="text-xs tracking-widest mb-4 opacity-50 uppercase">Password: seddikbenkada</p>
+                <input type="password" id="admin-pass" placeholder="••••••••" class="bg-black border border-white/10 p-4 rounded-xl text-center w-full outline-none focus:border-accent">
+                <button onclick="verifyAdmin()" class="bg-accent text-black font-bold px-8 py-3 rounded-xl hover:scale-105 transition-all">Unlock System</button>
             </div>
 
             <div id="admin-content" class="hidden space-y-8">
-                <div class="p-6 border border-white/5 bg-black/40 rounded-3xl">
-                    <h3 class="font-bold text-xs mb-6 uppercase text-accent tracking-widest">Upload Data</h3>
+                <div class="p-6 border border-white/5 bg-black/40 rounded-2xl">
+                    <h3 class="font-bold text-sm mb-4 uppercase text-accent">Add New Project</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <input type="text" id="new-title" placeholder="Project Title" class="bg-black border border-white/5 p-4 rounded-xl outline-none text-sm focus:border-accent/30">
-                        <input type="text" id="new-vimeo" placeholder="Vimeo ID" class="bg-black border border-white/5 p-4 rounded-xl outline-none text-sm focus:border-accent/30">
+                        <input type="text" id="new-title" placeholder="Project Name" class="bg-black border border-white/10 p-3 rounded-lg outline-none text-sm">
+                        <input type="text" id="new-vimeo" placeholder="Vimeo ID (e.g. 1016254030)" class="bg-black border border-white/10 p-3 rounded-lg outline-none text-sm">
                     </div>
-                    <button onclick="addNewProject()" class="w-full mt-6 bg-white text-black font-bold py-4 rounded-xl hover:bg-accent transition-colors uppercase text-xs tracking-widest">Push to Grid</button>
+                    <button onclick="addNewProject()" class="w-full mt-4 bg-white text-black font-bold py-3 rounded-xl hover:bg-accent transition-colors">Add to Portfolio</button>
                 </div>
-                <div id="admin-project-list" class="space-y-3"></div>
-                <button onclick="saveAdminChanges()" class="w-full bg-accent/10 border border-accent/20 text-accent font-bold py-5 rounded-2xl hover:bg-accent hover:text-black transition-all uppercase text-xs tracking-widest">Commit Changes</button>
+
+                <div>
+                    <h3 class="font-bold text-sm mb-4 uppercase text-accent">Current Portfolio Items</h3>
+                    <div id="admin-project-list" class="space-y-3"></div>
+                </div>
+                <button onclick="saveAdminChanges()" class="w-full bg-accent text-black font-bold py-4 rounded-xl shadow-lg">Save & Refresh Site</button>
             </div>
         </div>
     </div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full h-[80px] flex justify-between items-center px-6 lg:px-16 glass z-50">
-        <div id="main-logo" class="font-display text-2xl font-bold tracking-tight cursor-pointer select-none group" onclick="logoClick()">
-            FRAME<span class="text-accent group-hover:italic transition-all">EDIT</span>
+        <div id="main-logo" class="font-display text-2xl font-bold tracking-tight cursor-pointer select-none" onclick="logoClick()">
+            FRAME<span class="text-accent">EDIT</span>
         </div>
         
         <div class="hidden md:flex items-center gap-8">
-            <a href="#view-home" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Home</a>
-            <a href="#view-work" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Work</a>
-            <a href="#view-process" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Process</a>
-            <a href="#view-contact" class="nav-link hover:text-accent transition-colors text-[10px] font-bold uppercase tracking-widest">Contact</a>
+            <a href="#view-home" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Home</a>
+            <a href="#view-work" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Work</a>
+            <a href="#view-process" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Process</a>
+            <a href="#view-contact" class="hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Contact</a>
         </div>
 
-        <a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-[10px] uppercase tracking-wider hover:scale-105 transition-all shadow-[0_5px_15px_-5px_rgba(0,255,174,0.4)]">
-            Get Started
+        <a href="#view-contact" class="bg-accent text-black px-6 py-2 rounded-full font-bold text-sm hover:scale-105 transition-all">
+            Start Now
         </a>
     </nav>
 
     <main>
         <!-- HERO -->
-        <section id="view-home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 hero-gradient relative overflow-hidden">
-            <div class="absolute inset-0 z-0 opacity-20 pointer-events-none scale-110">
-                <img src="images/hero-ai.jpg" alt="[Image of خلفية سينمائية]" class="w-full h-full object-cover">
-            </div>
-
-            <div class="max-w-4xl z-10 reveal active">
-                <div class="inline-block px-4 py-1 border border-accent/30 rounded-full text-accent text-[9px] uppercase tracking-[0.4em] mb-8 font-bold bg-accent/5 backdrop-blur-sm animate-pulse">Creative Intelligence</div>
-                <h1 class="font-display text-6xl md:text-9xl font-bold mb-8 uppercase tracking-tighter leading-[0.85]">Frame<br><span class="text-accent italic">Perfected.</span></h1>
-                <p class="text-white/50 text-base md:text-lg mb-12 max-w-xl mx-auto font-light leading-relaxed">High-end video production and cinematic editing tailored for the digital age.</p>
+        <section id="view-home" class="min-h-screen flex flex-col justify-center items-center text-center px-6 hero-gradient relative">
+            <div class="max-w-4xl z-10">
+                <div class="inline-block px-4 py-1 border border-accent/30 rounded-full text-accent text-[10px] uppercase tracking-[0.3em] mb-6 font-bold bg-accent/5">Professional Creative Studio</div>
+                <h1 class="font-display text-5xl md:text-8xl font-bold mb-8 uppercase tracking-tighter">Your Story <br><span class="text-accent">Perfectly Cut</span></h1>
+                <p class="text-textMuted text-lg md:text-xl mb-12 max-w-2xl mx-auto opacity-70">Expert video editing and motion graphics for brands that want to dominate visual platforms.</p>
                 <div class="flex flex-wrap gap-4 justify-center">
-                    <a href="#view-work" class="bg-accent text-black px-10 py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs hover:shadow-[0_0_30px_rgba(0,255,174,0.3)] transition-all">View Projects</a>
-                    <a href="#view-contact" class="border border-white/10 text-white px-10 py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-xs hover:bg-white/5 transition-all">Contact Us</a>
+                    <a href="#view-work" class="bg-accent text-black px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:scale-105 transition-all">Explore Work</a>
+                    <a href="#view-contact" class="border border-white/20 text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-white/5 transition-all">Get a Quote</a>
                 </div>
             </div>
         </section>
 
-        <!-- SERVICES -->
-        <section class="px-6 lg:px-16 py-32 bg-black relative">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-[1440px] mx-auto stagger-reveal">
-                <div class="reveal relative group h-[500px] overflow-hidden rounded-[48px] ai-glow">
-                    <img src="images/edit-ai.jpg" alt="[Image of مونتاج فيديو]" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
-                    <div class="absolute inset-0 image-overlay flex flex-col justify-end p-12">
-                        <h3 class="text-2xl font-bold font-display uppercase mb-3">Post Production</h3>
-                        <p class="text-[10px] opacity-50 uppercase tracking-[0.3em]">Precision editing workflow.</p>
-                    </div>
+        <!-- FEATURES -->
+        <section class="px-6 lg:px-16 py-24 bg-cardBg/50">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-[1440px] mx-auto">
+                <div class="text-center p-8 border border-white/5 rounded-3xl bg-black">
+                    <div class="text-accent text-4xl mb-4 italic">01</div>
+                    <h4 class="font-bold uppercase text-xs tracking-widest mb-2">High Quality</h4>
+                    <p class="text-xs opacity-50">4K rendering and premium color grading for every frame.</p>
                 </div>
-                <div class="reveal relative group h-[500px] overflow-hidden rounded-[48px] ai-glow" style="transition-delay: 150ms;">
-                    <img src="images/motion-ai.jpg" alt="[Image of موشن جرافيك]" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
-                    <div class="absolute inset-0 image-overlay flex flex-col justify-end p-12">
-                        <h3 class="text-2xl font-bold font-display uppercase mb-3 text-accent">Motion Design</h3>
-                        <p class="text-[10px] opacity-50 uppercase tracking-[0.3em]">Fluid visual narratives.</p>
-                    </div>
+                <div class="text-center p-8 border border-white/5 rounded-3xl bg-black">
+                    <div class="text-accent text-4xl mb-4 italic">02</div>
+                    <h4 class="font-bold uppercase text-xs tracking-widest mb-2">Fast Delivery</h4>
+                    <p class="text-xs opacity-50">Optimized workflow to meet your tightest deadlines.</p>
                 </div>
-                <div class="reveal relative group h-[500px] overflow-hidden rounded-[48px] ai-glow" style="transition-delay: 300ms;">
-                    <img src="images/color-ai.jpg" alt="" class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
-                    <div class="absolute inset-0 image-overlay flex flex-col justify-end p-12">
-                        <h3 class="text-2xl font-bold font-display uppercase mb-3">Color Mastery</h3>
-                        <p class="text-[10px] opacity-50 uppercase tracking-[0.3em]">Cinematic atmosphere.</p>
-                    </div>
+                <div class="text-center p-8 border border-white/5 rounded-3xl bg-black">
+                    <div class="text-accent text-4xl mb-4 italic">03</div>
+                    <h4 class="font-bold uppercase text-xs tracking-widest mb-2">Retention Focus</h4>
+                    <p class="text-xs opacity-50">Edits designed to keep viewers hooked from start to finish.</p>
+                </div>
+                <div class="text-center p-8 border border-white/5 rounded-3xl bg-black">
+                    <div class="text-accent text-4xl mb-4 italic">04</div>
+                    <h4 class="font-bold uppercase text-xs tracking-widest mb-2">Unlimited Revisions</h4>
+                    <p class="text-xs opacity-50">I work until you are 100% satisfied with the result.</p>
                 </div>
             </div>
         </section>
 
-        <!-- PORTFOLIO -->
-        <section id="view-work" class="px-6 lg:px-16 py-32 border-t border-white/5">
-            <div class="reveal flex flex-col md:flex-row justify-between items-end mb-20 gap-6">
-                <h2 class="font-display text-5xl md:text-7xl font-bold uppercase tracking-tighter">Selected<br><span class="text-accent italic">Works</span></h2>
-                <div class="text-[10px] opacity-40 uppercase tracking-[0.5em] mb-4">Crafting Excellence Since 2024</div>
+        <!-- WORK -->
+        <section id="view-work" class="px-6 lg:px-16 py-32">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-4">
+                <h2 class="font-display text-4xl md:text-6xl font-bold uppercase tracking-tighter">Selected <span class="text-accent">Projects</span></h2>
+                <p class="text-xs opacity-50 uppercase tracking-[0.2em]">Latest visual creations</p>
             </div>
             
-            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 gap-16"></div>
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 gap-12"></div>
+
+            <div id="load-more-container" class="mt-20 flex justify-center hidden">
+                <button onclick="loadMore()" class="group flex items-center gap-4 bg-white/5 border border-white/10 px-12 py-5 rounded-2xl hover:bg-accent hover:text-black transition-all font-bold uppercase tracking-[0.2em] text-sm">
+                    Load More Projects
+                    <span class="text-accent group-hover:text-black">↓</span>
+                </button>
+            </div>
         </section>
 
-        <!-- PROCESS -->
-        <section id="view-process" class="px-6 lg:px-16 py-32 border-t border-white/5 bg-cardBg/30 overflow-hidden">
-            <div class="max-w-5xl mx-auto">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-                    <div class="space-y-12 reveal">
-                        <div class="group">
-                            <div class="flex items-center gap-6 mb-4">
-                                <span class="text-4xl font-display font-bold text-accent/20 group-hover:text-accent transition-colors">01</span>
-                                <h3 class="text-2xl font-bold font-display uppercase italic">Onboarding</h3>
-                            </div>
-                            <p class="opacity-40 text-sm leading-relaxed pl-14">Deep dive into your project requirements and visual style preferences.</p>
-                        </div>
-                        <div class="group">
-                            <div class="flex items-center gap-6 mb-4">
-                                <span class="text-4xl font-display font-bold text-accent/20 group-hover:text-accent transition-colors">02</span>
-                                <h3 class="text-2xl font-bold font-display uppercase italic">Production</h3>
-                            </div>
-                            <p class="opacity-40 text-sm leading-relaxed pl-14">Executing the vision with industry-standard tools and AI assistance.</p>
-                        </div>
+        <!-- PROCESS SECTION -->
+        <section id="view-process" class="px-6 lg:px-16 py-32 border-t border-white/5 bg-black">
+            <div class="text-center mb-24">
+                <h2 class="font-display text-4xl md:text-6xl font-bold mb-4 uppercase italic">The Workflow</h2>
+                <p class="text-xs opacity-50 uppercase tracking-[0.3em]">How we bring your ideas to life</p>
+            </div>
+
+            <div class="max-w-5xl mx-auto space-y-24 relative">
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row items-center gap-12 group">
+                    <div class="w-20 h-20 rounded-full border border-accent flex items-center justify-center text-accent font-display text-3xl font-bold bg-black z-10 group-hover:bg-accent group-hover:text-black transition-all">1</div>
+                    <div class="flex-1 bg-cardBg border border-white/5 p-10 rounded-[40px] hover:border-accent/30 transition-all">
+                        <h3 class="text-2xl font-bold mb-4 font-display uppercase italic">The Briefing</h3>
+                        <p class="opacity-60 text-sm">We discuss your vision, target audience, and project goals to ensure we are on the same page.</p>
                     </div>
-                    <div class="reveal rounded-[40px] overflow-hidden ai-glow aspect-square relative" style="transition-delay: 200ms;">
-                        <img src="images/process-1.jpg" alt="[Image of عملية العمل]" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row-reverse items-center gap-12 group">
+                    <div class="w-20 h-20 rounded-full border border-accent flex items-center justify-center text-accent font-display text-3xl font-bold bg-black z-10 group-hover:bg-accent group-hover:text-black transition-all">2</div>
+                    <div class="flex-1 bg-cardBg border border-white/5 p-10 rounded-[40px] hover:border-accent/30 transition-all text-right md:text-left">
+                        <h3 class="text-2xl font-bold mb-4 font-display uppercase italic text-accentSecondary">Creative Editing</h3>
+                        <p class="opacity-60 text-sm">I transform your raw footage using advanced techniques, sound design, and motion graphics.</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row items-center gap-12 group">
+                    <div class="w-20 h-20 rounded-full border border-accent flex items-center justify-center text-accent font-display text-3xl font-bold bg-black z-10 group-hover:bg-accent group-hover:text-black transition-all">3</div>
+                    <div class="flex-1 bg-cardBg border border-white/5 p-10 rounded-[40px] hover:border-accent/30 transition-all">
+                        <h3 class="text-2xl font-bold mb-4 font-display uppercase italic">Delivery & Feedback</h3>
+                        <p class="opacity-60 text-sm">Review the first draft. We make final adjustments until the video is perfect for your needs.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CONTACT -->
-        <section id="view-contact" class="px-6 py-40 relative">
-             <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
-                <img src="images/contact-bg.jpg" alt="[Image of تواصل معنا]" class="w-full h-full object-cover">
-            </div>
-            
-            <div class="reveal max-w-4xl mx-auto bg-cardBg/90 backdrop-blur-2xl border border-white/5 p-12 md:p-20 rounded-[56px] z-10 relative">
-                <div class="text-center mb-16">
-                    <h2 class="font-display text-4xl md:text-6xl font-bold mb-4 uppercase italic">Let's Talk</h2>
-                    <p class="text-[10px] opacity-40 uppercase tracking-[0.4em]">Initialize Connection</p>
+        <!-- CONTACT FORM -->
+        <section id="view-contact" class="px-6 py-32 bg-accent/5">
+            <div class="max-w-5xl mx-auto bg-cardBg border border-borderColor p-8 md:p-16 rounded-[40px]">
+                <div class="text-center mb-12">
+                    <h2 class="font-display text-4xl md:text-5xl font-bold mb-4 uppercase tracking-tighter">Start Your Project</h2>
+                    <p class="text-sm opacity-50 uppercase tracking-widest">Complete the briefing to get a precise quote</p>
                 </div>
                 
-                <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <input type="text" id="f-name" placeholder="Full Name" required class="w-full bg-black/50 border border-white/5 p-5 rounded-2xl focus:border-accent/40 outline-none transition-all placeholder:text-white/20 text-white">
-                    <input type="text" id="f-phone" placeholder="WhatsApp / Phone" required class="w-full bg-black/50 border border-white/5 p-5 rounded-2xl focus:border-accent/40 outline-none transition-all placeholder:text-white/20 text-white">
-                    <div class="md:col-span-2">
-                        <button type="submit" class="w-full bg-accent text-black font-bold py-6 rounded-2xl uppercase tracking-[0.3em] text-xs hover:brightness-110 transition-all shadow-[0_15px_40px_-10px_rgba(0,255,174,0.4)]">
-                            Send Request
+                <form id="contactForm" class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Full Name</label>
+                        <input type="text" id="f-name" placeholder="Seddik Benkada" required class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Phone / WhatsApp</label>
+                        <input type="text" id="f-phone" placeholder="+213 6XX XX XX XX" required class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Project Type</label>
+                        <select id="f-type" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
+                            <option value="Video Editing">Video Editing</option>
+                            <option value="Motion Graphics">Motion Graphics</option>
+                            <option value="Reels / Shorts">Reels / Short-form</option>
+                            <option value="Advertising Ads">Advertising (Ads)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Video Orientation</label>
+                        <select id="f-orientation" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
+                            <option value="Vertical (9:16)">Vertical (Reels / TikTok / Shorts)</option>
+                            <option value="Horizontal (16:9)">Horizontal (YouTube / Website)</option>
+                            <option value="Square (1:1)">Square (Instagram Feed)</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Video Usage</label>
+                        <select id="f-usage" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
+                            <option value="Social Media Content">Social Media Post</option>
+                            <option value="Paid Advertisement">Paid Advertisement</option>
+                            <option value="Brand Promo">Brand Promo</option>
+                            <option value="Personal / YouTube">Personal / YouTube</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Estimated Duration</label>
+                        <select id="f-duration" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
+                            <option value="Under 30s">< 30 seconds</option>
+                            <option value="30s - 60s">30–60 seconds</option>
+                            <option value="1 - 3 mins">1–3 minutes</option>
+                            <option value="Over 3 mins">+ 3 minutes</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-2 md:col-span-2">
+                        <label class="text-[10px] font-bold text-accent uppercase tracking-widest ml-2">Deadline</label>
+                        <select id="f-dead" class="w-full bg-black/50 border border-white/10 p-4 rounded-xl focus:border-accent outline-none transition-all">
+                            <option value="Urgent (ASAP)">Urgent (ASAP)</option>
+                            <option value="Within this week">Within this week</option>
+                            <option value="Flexible (No rush)">Flexible / No rush</option>
+                        </select>
+                    </div>
+
+                    <div class="md:col-span-2 mt-6">
+                        <button type="submit" class="w-full bg-accent text-black font-bold py-5 rounded-2xl uppercase tracking-[0.2em] text-sm hover:scale-[1.01] hover:shadow-[0_0_30px_rgba(0,255,174,0.3)] transition-all">
+                            Send Request via WhatsApp
                         </button>
                     </div>
                 </form>
@@ -240,108 +274,98 @@
         </section>
     </main>
 
+    <!-- FOOTER WITH SOCIALS -->
     <footer class="px-6 py-20 bg-black border-t border-white/5">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
-            <div class="font-display text-2xl font-bold uppercase tracking-tighter">FRAME<span class="text-accent">EDIT</span></div>
-            <div class="flex gap-12 text-[10px] font-bold uppercase tracking-widest opacity-40">
-                <a href="#" class="hover:text-accent transition-colors">Instagram</a>
-                <a href="#" class="hover:text-accent transition-colors">TikTok</a>
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="text-center md:text-left">
+                <div class="font-display text-3xl font-bold mb-4 uppercase">FRAME<span class="text-accent">EDIT</span></div>
+                <p class="text-xs opacity-50 uppercase tracking-widest">Premium Motion & Video Content</p>
             </div>
-            <div class="text-[9px] opacity-20 uppercase tracking-[0.4em]">© 2024 Seddik Studio</div>
+
+            <div class="flex flex-col items-center gap-6">
+                <h5 class="text-[10px] font-bold uppercase tracking-[0.4em] text-accent">Connect with me</h5>
+                <div class="flex gap-8">
+                    <!-- Instagram -->
+                    <a href="https://instagram.com/seddik" target="_blank" class="hover:text-accent transition-all group">
+                        <svg class="w-6 h-6 fill-current group-hover:scale-110" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <!-- TikTok -->
+                    <a href="https://tiktok.com/@seddik" target="_blank" class="hover:text-accent transition-all group">
+                        <svg class="w-6 h-6 fill-current group-hover:scale-110" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                    </a>
+                    <!-- Email -->
+                    <a href="mailto:seddik@example.com" class="hover:text-accent transition-all group">
+                        <svg class="w-6 h-6 fill-none stroke-current stroke-2 group-hover:scale-110" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="text-center md:text-right">
+                <p class="text-[10px] opacity-40 uppercase tracking-widest leading-loose">
+                    &copy; 2024 FrameEdit Studio<br>
+                    Crafted with passion by Seddik
+                </p>
+            </div>
         </div>
     </footer>
 
     <script>
         const phone = "213668591373";
-        const _k = "c2VkZGlrYmVua2FkYQ=="; 
-        
         let projects = [
-            { id: '1016254030', title: 'Urban Narrative' },
-            { id: '913349639', title: 'Electronic Soul' },
-            { id: '911953257', title: 'Cyber Pulse' }
+            { id: '1016254030', title: 'Street Fashion 2024' },
+            { id: '913349639', title: 'Corporate Reveal' },
+            { id: '1016254030', title: 'Tech Showcase' },
+            { id: '913349639', title: 'Brand Story' },
+            { id: '1016254030', title: 'Social Reel X' },
+            { id: '913349639', title: 'Music Video Edit' },
+            { id: '1016254030', title: 'Commercial Spot' }
         ];
 
-        // Reveal Animations Logic
-        const observerOptions = { threshold: 0.1 };
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
-        }, observerOptions);
+        let itemsToShow = 5;
 
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
+        // Admin System
+        let clickCount = 0;
         function logoClick() {
-            window.clickCount = (window.clickCount || 0) + 1;
-            if(window.clickCount >= 5) { 
-                document.getElementById('admin-overlay').style.display = 'flex'; 
-                window.clickCount = 0; 
-            }
-            setTimeout(() => { window.clickCount = 0; }, 2000);
+            clickCount++;
+            if(clickCount >= 5) { document.getElementById('admin-overlay').style.display = 'flex'; clickCount = 0; }
+            setTimeout(() => { clickCount = 0; }, 2000);
         }
-
         function closeAdmin() { document.getElementById('admin-overlay').style.display = 'none'; }
-        
         function verifyAdmin() {
-            const input = document.getElementById('admin-pass').value;
-            if(btoa(input) === _k) {
+            if(document.getElementById('admin-pass').value === "seddikbenkada") {
                 document.getElementById('admin-auth').classList.add('hidden');
                 document.getElementById('admin-content').classList.remove('hidden');
                 renderAdminList();
-            } else {
-                const btn = event.target;
-                btn.style.animation = 'shake 0.4s';
-                btn.classList.add('bg-red-500');
-                setTimeout(() => {
-                    btn.style.animation = '';
-                    btn.classList.remove('bg-red-500');
-                }, 500);
-            }
+            } else { alert("Khoya, ghalet!"); }
         }
-
         function renderAdminList() {
             const list = document.getElementById('admin-project-list');
             list.innerHTML = '';
             projects.forEach((p, idx) => {
-                list.innerHTML += `<div class="flex items-center gap-4 bg-black/40 p-4 rounded-2xl border border-white/5"><div class="flex-1 text-[10px] uppercase font-bold tracking-wider truncate">${p.title}</div><button onclick="projects.splice(${idx}, 1); renderAdminList();" class="text-red-500 hover:scale-125 transition-transform">×</button></div>`;
+                list.innerHTML += `<div class="flex items-center gap-3 bg-black/60 p-3 rounded-xl border border-white/5"><div class="flex-1 text-xs font-bold truncate">${p.title}</div><button onclick="deleteProject(${idx})" class="text-red-500 font-bold px-2">X</button></div>`;
             });
         }
-
         function addNewProject() {
             const t = document.getElementById('new-title').value, i = document.getElementById('new-vimeo').value;
-            if(t && i) { 
-                projects.unshift({ id: i, title: t }); 
-                renderAdminList(); 
-                document.getElementById('new-title').value = ''; 
-                document.getElementById('new-vimeo').value = ''; 
-            }
+            if(t && i) { projects.unshift({ id: i, title: t }); renderAdminList(); }
         }
+        function deleteProject(idx) { projects.splice(idx, 1); renderAdminList(); }
+        function saveAdminChanges() { itemsToShow = 5; renderWork(); closeAdmin(); }
 
-        function saveAdminChanges() { 
-            renderWork(); 
-            closeAdmin(); 
-            // Re-observe new elements
-            setTimeout(() => {
-                document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-            }, 100);
-        }
-
+        // Core Functions
         function renderWork() {
-            const grid = document.getElementById('portfolio-grid');
+            const grid = document.getElementById('portfolio-grid'), btn = document.getElementById('load-more-container');
             grid.innerHTML = '';
-            projects.forEach(p => {
-                grid.innerHTML += `
-                    <div class="reveal bg-cardBg rounded-[48px] p-8 border border-white/5 transition-all group ai-glow">
-                        <div class="vimeo-wrapper mb-8 group-hover:scale-[1.02]"><iframe src="https://player.vimeo.com/video/${p.id}?color=00FFAE&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture"></iframe></div>
-                        <h3 class="text-3xl font-bold font-display uppercase group-hover:text-accent transition-colors italic tracking-tighter">${p.title}</h3>
-                    </div>
-                `;
+            projects.slice(0, itemsToShow).forEach(p => {
+                grid.innerHTML += `<div class="bg-cardBg rounded-[32px] p-6 border border-white/5 hover:border-accent/30 transition-all group"><div class="vimeo-wrapper mb-6"><iframe src="https://player.vimeo.com/video/${p.id}"></iframe></div><h3 class="text-2xl font-bold font-display uppercase group-hover:text-accent transition-colors">${p.title}</h3></div>`;
             });
+            btn.classList.toggle('hidden', projects.length <= itemsToShow);
         }
+        function loadMore() { itemsToShow += 4; renderWork(); }
 
         document.getElementById('contactForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            const msg = `*New Project Inquiry*:%0A- Name: ${document.getElementById('f-name').value}%0A- Status: Initializing connection...`;
+            const msg = `*Briefing*:%0A- Client: ${document.getElementById('f-name').value}%0A- Type: ${document.getElementById('f-type').value}%0A- Dur: ${document.getElementById('f-duration').value}%0A- Dead: ${document.getElementById('f-dead').value}`;
             window.open(`https://wa.me/${phone}?text=${msg}`);
         });
 
